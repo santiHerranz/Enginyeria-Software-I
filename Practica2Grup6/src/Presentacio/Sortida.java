@@ -3,6 +3,8 @@ package Presentacio;
 public class Sortida {
 	public static void missatge(String text) {
 		System.out.print(text);
-	
+	}
+	public static void missatgeln(String text) {
+		System.out.println(text);
 	}
 }

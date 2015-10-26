@@ -5,87 +5,66 @@ import Presentacio.Sortida;
 
 public class Joc {
 
-	private static int comptador;
-	private static int cordX;
-	private static int cordY;
-	private static int actualX;
-	private static int actualY;
-
-
-
-	public static void introduirDades(){
-		Joc.ompleTaulell();
-		Joc.pintaTaulell();
-
-		cordX = Entrada.readInput("x");
-		cordY = Entrada.readInput("y");
-	}
+	private  int comptador;
 	
+	private Taulell taulell;
+	private Casella actual; // Coordenada de l'ultim moviment
+	private Casella coord; // Coordenada llegida
 
-	public static void ompleTaulell(){
-		for (int i = 1; i <= Taulell.files; ++i){
-			for (int j = 1; j <= Taulell.columnes; ++j){
-				if (i == cordX && j == cordY) Taulell.taulell[i-1][j-1] = comptador;
-			}
-		}
+	public Joc(){
+		taulell = new Taulell(4,4);
+		coord = new Casella();
+		actual = new Casella();
 	}
 
-	public static void pintaTaulell(){
-		for (int i = 1; i <= Taulell.files; ++i) {
-			for (int j = 1; j <= Taulell.columnes; ++j) {
-				Sortida.missatge(Taulell.taulell[i-1][j-1] + "    ");
-			}
-			System.out.println();
-		}
-	}
+	/*
+	 * Métode que comprova el moviment del cavall
+	 */
+	public boolean comprovarMovimentCavall(Casella ultima, Casella actual){
+		if(actual.x() == 0 && actual.y() == 0) return true;
 
-	public static boolean comprobarTaulell(int cordX, int cordY){
-
-		if ((cordX < 1 || cordX > Taulell.files) || (cordY < 1 || cordY > Taulell.columnes)){
-			System.out.println("Error fila i/o columna fora del taullel");
-			return false;
-		} else if (Taulell.taulell[cordX-1][cordY-1] != 0){
-			System.out.println("La posició ja està ocupada");
-			return false;
-		}
-		return true;
-	}
-
-	public static boolean comprobarMov(){
-		if(actualX == 0 && actualY == 0) return true;
-
-		if(actualY-2 == cordY && actualX-1 == cordX) return true;
-		if(actualY-2 == cordY && actualX+1 == cordX) return true;
-		if(actualY-1 == cordY && actualX-2 == cordX) return true;
-		if(actualY-1 == cordY && actualX+2 == cordX) return true;
-		if(actualY+1 == cordY && actualX-2 == cordX) return true;
-		if(actualY+1 == cordY && actualX+2 == cordX) return true;
-		if(actualY+2 == cordY && actualX-1 == cordX) return true;
-		if(actualY+2 == cordY && actualX+1 == cordX) return true;
-		Sortida.missatge(String.format("El moviment %d, %d no és vàlid!, ha de ser el salt del cavall dels escacs.\n", cordX, cordY));
+		if(actual.y()-2 == ultima.y() && actual.x()-1 == ultima.x()) return true;
+		if(actual.y()-2 == ultima.y() && actual.x()+1 == ultima.x()) return true;
+		if(actual.y()-1 == ultima.y() && actual.x()-2 == ultima.x()) return true;
+		if(actual.y()-1 == ultima.y() && actual.x()+2 == ultima.x()) return true;
+		if(actual.y()+1 == ultima.y() && actual.x()-2 == ultima.x()) return true;
+		if(actual.y()+1 == ultima.y() && actual.x()+2 == ultima.x()) return true;
+		if(actual.y()+2 == ultima.y() && actual.x()-1 == ultima.x()) return true;
+		if(actual.y()+2 == ultima.y() && actual.x()+1 == ultima.x()) return true;
+		Sortida.missatgeln(String.format("El moviment %d, %d no és vàlid!, ha de ser el salt del cavall dels escacs.\n", ultima.x(), ultima.y()));
 		return false;
 	}
 
 	public static void main(String args[]) {
-		comptador = 0;
-		Taulell.inicialitzaTaulell();
+		
+		Sortida.missatge("Inici del joc del cavall\n");
+		
+		Joc joc = new Joc();
+		
+		joc.comptador = 0;
+		joc.taulell.inicialitza();
 
-		while (comptador < Taulell.files*Taulell.columnes) {
-			Joc.introduirDades();
-			if (Joc.comprobarTaulell(cordX, cordY) && Joc.comprobarMov()){
-				actualX = cordX;
-				actualY = cordY;
-				comptador++;
-				Sortida.missatge(String.format("Molt bé! Queden %d moviments per guanyar\n", Taulell.files*Taulell.columnes-comptador));
+		while (joc.comptador < joc.taulell.files*joc.taulell.columnes) {
+			joc.taulell.pinta();
+
+			joc.coord.x(Entrada.readInput("x"));
+			joc.coord.y(Entrada.readInput("y"));
+			
+			if (joc.taulell.comprobar(joc.coord) && joc.comprovarMovimentCavall(joc.coord, joc.actual)){
+				joc.comptador++;
+				joc.taulell.omple(joc.coord, joc.comptador);
+				Sortida.missatgeln(String.format("Molt bé! Queden %d moviments per guanyar\n", joc.taulell.files*joc.taulell.columnes-joc.comptador));
+
+				joc.actual.x(joc.coord.x());
+				joc.actual.y(joc.coord.y());
 			} else {
-				cordX = 0;
-				cordY = 0;
+				joc.coord.x(0);
+				joc.coord.y(0);
 			}
 		}
-		if (comptador == Taulell.files*Taulell.columnes) {
-			Joc.ompleTaulell();
-			Joc.pintaTaulell();
-			Sortida.missatge("Enhorabona! Has guanyat!");
+		if (joc.comptador == joc.taulell.files*joc.taulell.columnes) {
+			joc.taulell.pinta();
+			Sortida.missatgeln("Enhorabona! Has guanyat!");
 		}
 	}
 }
