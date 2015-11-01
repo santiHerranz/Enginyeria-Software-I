@@ -1,8 +1,5 @@
 package Domini;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import Presentacio.*;
 
 public class Taulell {
@@ -10,7 +7,7 @@ public class Taulell {
 	int CasellaBuida = 0;
 	public int files = 0;
 	public int columnes = 0;
-	public Casella[] taulell; // El taulell és un array de caselles
+	public Casella[][] taulell; // El taulell és un array de dos dimensions de caselles
 	public Casella actual; // Coordenada de l'ultim moviment
 
 	/*
@@ -19,7 +16,7 @@ public class Taulell {
 	Taulell(int files, int columnes) {
 		this.files = files;
 		this.columnes = columnes;
-		this.taulell = new Casella[files*columnes];
+		this.taulell = new Casella[files][columnes];
 		actual = new Casella();
 		
 	}
@@ -30,8 +27,7 @@ public class Taulell {
 	public void inicialitzar(){
 		for (int i = 0; i < this.files; ++i){
 			for (int j = 0; j < this.columnes; ++j){
-				int index = i*this.files+j;
-				this.taulell[index] = new Casella(i, j, this.CasellaBuida);
+				this.taulell[i][j] = new Casella(i, j, this.CasellaBuida);
 			}
 		}
 		actual.setContingut(0, 0, 0);
@@ -41,17 +37,14 @@ public class Taulell {
 	 * Métode que guarda a la coordenada el valor del comptador  
 	 */
 	public void guardar(int x, int y, int comptador){
-		int index = (x-1)*this.files+(y-1);
-		this.taulell[index].setContingut(x, y, comptador);
-
+		this.taulell[x-1][y-1].setContingut(x, y, comptador);
 	}	
 	
 	/*
 	 * Métode que obté el valor guardat de la coordenada   
 	 */
 	private int getContingut(int x, int y){
-		int index = (x-1)*this.files+(y-1);
-		return this.taulell[index].getContingut();
+		return this.taulell[x-1][y-1].getContingut();
 	}
 	
 
