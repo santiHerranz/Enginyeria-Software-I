@@ -1,19 +1,22 @@
 package Presentacio;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class JocCavall {
+public class JocCavall implements  ActionListener {
 	
 	// http://stackoverflow.com/questions/21077322/create-a-chess-board-with-jpanel
 
-    private final JPanel gui = new JPanel(new BorderLayout(0, 0));
-    private JButton[][] chessBoardSquares = new JButton[8][8];
+    private final JPanel gui = new JPanel(new GridLayout(2, 0));
     private JPanel chessBoard;
+    private JPanel chessMenu;
 
-    private static final String COLS = "ABCDEFGH";
-
+    JButton redButton;
+    
     JocCavall() {
         initializeGui();
     }
@@ -22,59 +25,38 @@ public class JocCavall {
         // set up the main GUI
         gui.setBorder(new EmptyBorder(0, 0, 0, 0));
 
-        chessBoard = new JPanel(new GridLayout(0, 9));
+        chessBoard = new JPanel(new GridLayout(0, 5));
         chessBoard.setBorder(new LineBorder(Color.BLACK));
-        gui.add(chessBoard);
 
         // create the chess board squares
         Insets buttonMargin = new Insets(1,1,1,1);
-        for (int ii = 0; ii < chessBoardSquares.length; ii++) {
-            for (int jj = 0; jj < chessBoardSquares[ii].length; jj++) {
-                JButton b = new JButton(" ");
+
+        Color toogle = Color.BLACK;
+        for (int ii = 0; ii < 5; ii++) {
+            for (int jj = 0; jj < 5; jj++) {
+                JButton b = new JButton(ii+" "+jj);
+                b.setForeground(Color.GRAY);
                 b.setMargin(buttonMargin);
-                // our chess pieces are 64x64 px in size, so we'll
-                // 'fill this in' using a transparent icon..
                 ImageIcon icon = new ImageIcon(
                         new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB));
                 b.setIcon(icon);
-                if ((jj % 2 == 1 && ii % 2 == 1)
-                        //) {
-                        || (jj % 2 == 0 && ii % 2 == 0)) {
-                    b.setBackground(Color.WHITE);
-                } else {
-                    b.setBackground(Color.BLACK);
-                }
-                chessBoardSquares[jj][ii] = b;
+                b.setBackground(toogle);
+                b.addActionListener(this);
+                chessBoard.add(b);
+
+                if(toogle != Color.BLACK) toogle = Color.BLACK; else toogle = Color.WHITE;
             }
         }
+        gui.add(chessBoard);
 
-        //fill the chess board
-        chessBoard.add(new JLabel("Pràctica 3"),
-                SwingConstants.CENTER);
-        // fill the top row
-        for (int ii = 0; ii < 8; ii++) {
-            chessBoard.add(
-                    new JLabel(COLS.substring(ii, ii + 1),
-                    SwingConstants.CENTER));
-        }
-
-        // fill the black non-pawn piece row
-        for (int ii = 0; ii < 8; ii++) {
-            for (int jj = 0; jj < 8; jj++) {
-                switch (jj) {
-                    case 0:
-                        chessBoard.add(new JLabel("" + (ii + 1),
-                                SwingConstants.CENTER));
-                    default:
-                        chessBoard.add(chessBoardSquares[jj][ii]);
-                }
-            }
-        }
+        chessMenu = new JPanel();
+      chessMenu.setBorder(new LineBorder(Color.BLACK));
+      JButton b2 = new JButton("Desfer darrer moviment");
+      chessMenu.add(b2);
+      gui.add(chessMenu);
+    
     }
 
-    public final JComponent getChessBoard() {
-        return chessBoard;
-    }
 
     public final JComponent getGui() {
         return gui;
@@ -96,4 +78,11 @@ public class JocCavall {
         f.setVisible(true);
         
     }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == redButton)
+        {
+        }		
+	}
 }
