@@ -4,7 +4,7 @@ import Presentacio.*;
 
 public class Taulell {
 
-	int CasellaBuida = 0;
+	String CasellaBuida = " ";
 	public int files = 0;
 	public int columnes = 0;
 	public Casella[][] taulell; // El taulell és un array de dos dimensions de caselles
@@ -33,7 +33,7 @@ public class Taulell {
 				this.taulell[i][j] = new Casella(i, j, this.CasellaBuida);
 			}
 		}
-		actual.setContingut(0, 0, 0);
+		actual.setContingut(0, 0, "");
 	}
 
 	
@@ -50,7 +50,7 @@ public class Taulell {
 		if (this.getContingut(x, y) != this.CasellaBuida) 
 			throw new Exception("La posició ja està ocupada");
 				
-		this.taulell[x-1][y-1].setContingut(x, y, comptador);
+		this.taulell[x-1][y-1].setContingut(x, y, String.valueOf(comptador));
 		this.actual.setX(x);
 		this.actual.setY(y);
 	}	
@@ -58,7 +58,7 @@ public class Taulell {
 	/*
 	 * Métode que obté el valor guardat de la coordenada   
 	 */
-	private int getContingut(int x, int y){
+	private String getContingut(int x, int y){
 		return this.taulell[x-1][y-1].getContingut();
 	}
 	

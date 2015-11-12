@@ -3,19 +3,19 @@ package Domini;
 public class Casella {
 	private int coordX;
 	private int coordY;
-	private int contingut;
+	private String contingut;
 	
 	public Casella(){
 		
 	}
-	public Casella(int x, int y, int contingut){
+	public Casella(int x, int y, String contingut){
 		this.setContingut(x, y, contingut);
 	}
 
-	public int getContingut() {
+	public String getContingut() {
 		return contingut;
 	}
-	public void setContingut(int x, int y, int contingut) {
+	public void setContingut(int x, int y, String contingut) {
 		this.coordX = x;
 		this.coordY = y;
 		this.contingut = contingut;

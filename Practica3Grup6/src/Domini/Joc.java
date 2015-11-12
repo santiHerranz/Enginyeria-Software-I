@@ -16,7 +16,10 @@ public class Joc {
 			this.taulell.guardar(x, y, ++this.comptador);
 		}
 	}
-	
+	public void desferMoviment() throws Exception {
+		throw new Exception("No hi ha més moviments per desfer");
+	}	
+
 	/*
 	 * Métode per pintar el taulell
 	 */
