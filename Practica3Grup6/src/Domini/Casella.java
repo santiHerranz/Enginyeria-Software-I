@@ -22,16 +22,16 @@ public class Casella {
 	}
 	
 	
-	public int x() {
+	public int getX() {
 		return coordX;
 	}
-	public void x(int cordX) {
+	public void setX(int cordX) {
 		this.coordX = cordX;
 	}
-	public int y() {
+	public int getY() {
 		return coordY;
 	}
-	public void y(int cordY) {
+	public void setY(int cordY) {
 		this.coordY = cordY;
 	}
 

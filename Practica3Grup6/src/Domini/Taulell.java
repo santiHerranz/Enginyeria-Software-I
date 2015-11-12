@@ -13,12 +13,15 @@ public class Taulell {
 	/*
 	 * Constructor de taulell
 	 */
+	Taulell(int mida) {
+		this(mida,mida);
+	}
 	Taulell(int files, int columnes) {
 		this.files = files;
 		this.columnes = columnes;
 		this.taulell = new Casella[files][columnes];
 		actual = new Casella();
-		
+		inicialitzar();
 	}
 	
 	/*
@@ -32,12 +35,24 @@ public class Taulell {
 		}
 		actual.setContingut(0, 0, 0);
 	}
+
+	
+	
 	
 	/*
 	 * Métode que guarda a la coordenada el valor del comptador  
 	 */
-	public void guardar(int x, int y, int comptador){
+	public void guardar(int x, int y, int comptador) throws Exception {
+
+		if ((x < 1 || x > this.files) || (y < 1 || y > this.columnes)) 
+			throw new Exception("Error fila i/o columna fora del taullel");
+
+		if (this.getContingut(x, y) != this.CasellaBuida) 
+			throw new Exception("La posició ja està ocupada");
+				
 		this.taulell[x-1][y-1].setContingut(x, y, comptador);
+		this.actual.setX(x);
+		this.actual.setY(y);
 	}	
 	
 	/*
@@ -47,34 +62,18 @@ public class Taulell {
 		return this.taulell[x-1][y-1].getContingut();
 	}
 	
-
-/*
- * Métode que comprova si la coordenada està dins del taulell i està lliure 
- */
-	public boolean comprovar(int x, int y){
-
-		if ((x < 1 || x > this.files) || (y < 1 || y > this.columnes)){
-			IO.missatgeln("Error fila i/o columna fora del taullel");
-			return false;
-		} else if (this.getContingut(x, y) != this.CasellaBuida){
-			IO.missatgeln("La posició ja està ocupada");
-			return false;
-		}
-		return true;
-
-	}	
-
-	/*
-	 *  Métode que representa l'estat actual del taulell
-	 */
-	public void pintar(){
-		for (int x = 1; x <= this.files; ++x) {
-			for (int y = 1; y <= this.columnes; ++y) {
-				IO.missatge(getContingut(x,y) + "\t");
+	
+		public String[][] estatTaulell(){
+			String[][] sb = new String[this.files][this.columnes];
+			
+		for (int x = 0; x < this.files; x++) {
+			for (int y = 0; y < this.columnes; y++) {
+				sb[x][y] = String.valueOf(getContingut(x+1,y+1));
 			}
-			IO.missatgeln("");
 		}
+		return sb;
 	}	
+	
 	
 	
 }
