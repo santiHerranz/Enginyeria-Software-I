@@ -1,27 +1,36 @@
 package Domini;
 
+import java.util.Stack;
+
 public class Joc {
 
-	private int comptador;
+	private int mida;
 	private Taulell taulell;
+	private Apuntador apuntador;
 	
 	public Joc(int mida){
-		this.comptador = 0;
+		this.mida = mida;
 		this.taulell = new Taulell(mida);
+		this.apuntador = new Apuntador();
 	}
 	
 	public void mouCavall( int x, int y) throws Exception {
 		
-		if (comprovarMovimentCavall(x,y)) { 
-			this.taulell.guardar(x, y, ++this.comptador);
+		if (this.comprovarMovimentCavall(x,y)) { 
+			this.apuntador.guardar(x,y);
+			this.taulell.moure(x, y, String.valueOf(this.apuntador.moviments));
 		}
 	}
 	public void desferMoviment() throws Exception {
-		throw new Exception("No hi ha més moviments per desfer");
+		if (this.apuntador.moviments==0)
+			throw new Exception("No hi ha més moviments per desfer");
+		Coord p = this.apuntador.ultimMoviment();
+		this.taulell.esborrar(p.x, p.y);
+		this.apuntador.desferUltimMoviment();
 	}	
 
 	/*
-	 * Métode per pintar el taulell
+	 * Métode per obtenir la representació del taulell
 	 */
 	public String[][] estatTaulell() {
 		return this.taulell.estatTaulell();
@@ -31,25 +40,25 @@ public class Joc {
 	 * Métode que comprova si el joc ha acabat
 	 */
 	public boolean acabat(){
-		return this.comptador == this.taulell.files*this.taulell.columnes;		
+		return this.apuntador.moviments == this.mida*this.mida;		
 	}
 	
 	/*
 	 * Métode que comprova el moviment del cavall
 	 */
-	public boolean comprovarMovimentCavall(int jugadorX, int jugadorY) throws Exception {
-		Casella actual = this.taulell.actual;
-		if(actual.getX() == 0 && actual.getY() == 0) return true;
+	public boolean comprovarMovimentCavall(int x, int y) throws Exception {
+		if(this.apuntador.moviments==0) return true;
 
-		if(actual.getY()-2 == jugadorY && actual.getX()-1 == jugadorX) return true;
-		if(actual.getY()-2 == jugadorY && actual.getX()+1 == jugadorX) return true;
-		if(actual.getY()-1 == jugadorY && actual.getX()-2 == jugadorX) return true;
-		if(actual.getY()-1 == jugadorY && actual.getX()+2 == jugadorX) return true;
-		if(actual.getY()+1 == jugadorY && actual.getX()-2 == jugadorX) return true;
-		if(actual.getY()+1 == jugadorY && actual.getX()+2 == jugadorX) return true;
-		if(actual.getY()+2 == jugadorY && actual.getX()-1 == jugadorX) return true;
-		if(actual.getY()+2 == jugadorY && actual.getX()+1 == jugadorX) return true;
-		throw new Exception(String.format("El moviment %d, %d no és vàlid!, ha de ser el salt del cavall dels escacs.", jugadorX, jugadorY));
+		Coord actual = this.apuntador.ultimMoviment();
+		if(actual.y-2 == y && actual.x-1 == x) return true;
+		if(actual.y-2 == y && actual.x+1 == x) return true;
+		if(actual.y-1 == y && actual.x-2 == x) return true;
+		if(actual.y-1 == y && actual.x+2 == x) return true;
+		if(actual.y+1 == y && actual.x-2 == x) return true;
+		if(actual.y+1 == y && actual.x+2 == x) return true;
+		if(actual.y+2 == y && actual.x-1 == x) return true;
+		if(actual.y+2 == y && actual.x+1 == x) return true;
+		throw new Exception(String.format("El moviment %d, %d no és vàlid!, ha de ser el salt del cavall dels escacs.", x, y));
 	}
 
 }

@@ -26,9 +26,9 @@ public class Finestra implements  ActionListener {
 	private JFrame frame;
     static final int MIDA = 5;
     public JButton[][] chessBoardSquares = new JButton[MIDA][MIDA];
-    JButton btnDesferButton;
+    static JButton btnDesferButton;
     
-    JLabel lblNewLabel;
+    static JLabel lblNewLabel;
     
     private static Finestra finestra;
     static Joc joc;    
@@ -44,12 +44,14 @@ public class Finestra implements  ActionListener {
 			public void run() {
 				try {
 					finestra = new Finestra();
-					
-			        joc = new Joc(finestra.chessBoardSquares.length);
+			        joc = new Joc(MIDA);
+
 			        finestra.refreshGui();
 					
-					
 					finestra.frame.setVisible(true);
+
+					lblNewLabel.setText("Clica el taulell per col·locar el cavall");
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -119,35 +121,17 @@ public class Finestra implements  ActionListener {
 	
 	
 	
-    public final void entradaCoord(int x, int y) throws Exception{
-		joc.mouCavall(x, y);
-		finestra.refreshGui();
-		lblNewLabel.setText(String.format("moviment %s,%s correcte", x,y) );
-    }
-    public final void desferMoviment() throws Exception{
-		joc.desferMoviment();
-		finestra.refreshGui();
-    }    
+
     public final void refreshGui(){
         String[][] sb = joc.estatTaulell();
 		for (int x = 0; x < sb.length; x++) {
 			for (int y = 0; y < sb[x].length; y++) {
 				finestra.chessBoardSquares[x][y].setText(sb[x][y]);
 			}
-		}        
+		} 
+//		btnDesferButton.setEnabled(!joc.historial.isEmpty());
+		
     }	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	@Override
@@ -156,6 +140,8 @@ public class Finestra implements  ActionListener {
 		if(arg0.getSource().equals(btnDesferButton)) {
 			try {
 				joc.desferMoviment();
+				finestra.refreshGui();
+				lblNewLabel.setText(String.format("moviment desfet!") );
 			} catch (Exception e) {
 				lblNewLabel.setText(e.getMessage());
 			}
@@ -170,7 +156,10 @@ public class Finestra implements  ActionListener {
 		int y = Integer.parseInt(ss[1]);
 		
 		try {
-			entradaCoord(x,y);
+			joc.mouCavall(x, y);
+			finestra.refreshGui();
+			lblNewLabel.setText(String.format("moviment %s,%s correcte", x,y) );
+			
 		} catch (Exception e1) {
 			lblNewLabel.setText(e1.getMessage());
 		}
