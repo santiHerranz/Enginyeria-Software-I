@@ -93,15 +93,16 @@ public class Finestra implements  ActionListener {
         chessBoard.setBorder(new LineBorder(Color.BLACK));
     	
         // create the chess board squares
-        Insets buttonMargin = new Insets(1,1,1,1);
+        Insets buttonMargin = new Insets(0,0,0,0);
 
         Color toogle = Color.BLACK;
         for (int ii = 0; ii < MIDA; ii++) {
             for (int jj = 0; jj < MIDA; jj++) {
                 JButton b = new JButton();
+        		b.setHorizontalTextPosition(SwingConstants.CENTER);
+        		b.setFont(new Font("Tahoma", Font.PLAIN, 24));
                 b.setToolTipText((ii+1) +","+ (jj+1));
                 b.setForeground(Color.GRAY);
-                b.setHorizontalAlignment(SwingConstants.CENTER);
                 b.setMargin(buttonMargin);
                 ImageIcon icon = new ImageIcon(
                         new BufferedImage(62, 62, BufferedImage.TYPE_INT_ARGB));
@@ -129,7 +130,7 @@ public class Finestra implements  ActionListener {
 				finestra.chessBoardSquares[x][y].setText(sb[x][y]);
 			}
 		} 
-//		btnDesferButton.setEnabled(!joc.historial.isEmpty());
+		btnDesferButton.setEnabled(joc.moviments()>0);
 		
     }	
 	

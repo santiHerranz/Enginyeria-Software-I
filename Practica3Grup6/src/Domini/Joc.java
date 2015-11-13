@@ -43,6 +43,10 @@ public class Joc {
 		return this.apuntador.moviments == this.mida*this.mida;		
 	}
 	
+	public int moviments() {
+		return this.apuntador.moviments;
+	}
+	
 	/*
 	 * Métode que comprova el moviment del cavall
 	 */
