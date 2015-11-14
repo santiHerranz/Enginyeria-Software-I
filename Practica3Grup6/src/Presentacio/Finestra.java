@@ -25,10 +25,10 @@ public class Finestra implements  ActionListener {
 
 	private JFrame frame;
     static final int MIDA = 5;
-    public JButton[][] chessBoardSquares = new JButton[MIDA][MIDA];
-    static JButton btnDesferButton;
+    public JButton[][] casellesTaulell = new JButton[MIDA][MIDA];
+    static JButton btnDesfer;
     
-    static JLabel lblNewLabel;
+    static JLabel lblEstat;
     
     private static Finestra finestra;
     static Joc joc;    
@@ -50,7 +50,7 @@ public class Finestra implements  ActionListener {
 					
 					finestra.frame.setVisible(true);
 
-					lblNewLabel.setText("Clica el taulell per col·locar el cavall");
+					lblEstat.setText("Clica sobre el taulell per col·locar el cavall");
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -74,14 +74,14 @@ public class Finestra implements  ActionListener {
 		frame.setBounds(100, 100, 500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		lblNewLabel = new JLabel(" ");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		frame.getContentPane().add(lblNewLabel, BorderLayout.NORTH);
+		lblEstat = new JLabel(" ");
+		lblEstat.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEstat.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		frame.getContentPane().add(lblEstat, BorderLayout.NORTH);
 		
-		btnDesferButton = new JButton("Desfer darrer moviment");
-		btnDesferButton.addActionListener(this);
-		frame.getContentPane().add(btnDesferButton, BorderLayout.SOUTH);
+		btnDesfer = new JButton("Desfer darrer moviment");
+		btnDesfer.addActionListener(this);
+		frame.getContentPane().add(btnDesfer, BorderLayout.SOUTH);
 		
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -105,12 +105,12 @@ public class Finestra implements  ActionListener {
                 b.setForeground(Color.GRAY);
                 b.setMargin(buttonMargin);
                 ImageIcon icon = new ImageIcon(
-                        new BufferedImage(62, 62, BufferedImage.TYPE_INT_ARGB));
+                        new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB));
                 b.setIcon(icon);
                 b.setBackground(toogle);
                 b.addActionListener(this);
                 chessBoard.add(b);
-                chessBoardSquares[ii][jj] = b;
+                casellesTaulell[ii][jj] = b;
 
                 if(toogle != Color.BLACK) toogle = Color.BLACK; else toogle = Color.WHITE;
             }
@@ -127,24 +127,23 @@ public class Finestra implements  ActionListener {
         String[][] sb = joc.estatTaulell();
 		for (int x = 0; x < sb.length; x++) {
 			for (int y = 0; y < sb[x].length; y++) {
-				finestra.chessBoardSquares[x][y].setText(sb[x][y]);
+				finestra.casellesTaulell[x][y].setText(sb[x][y]);
 			}
 		} 
-		btnDesferButton.setEnabled(joc.moviments()>0);
-		
+		//btnDesfer.setEnabled(joc.moviments()>0); // Es pot deasctivar el botó si no hi ha moviments que desfer
     }	
 	
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
-		if(arg0.getSource().equals(btnDesferButton)) {
+		if(arg0.getSource().equals(btnDesfer)) {
 			try {
 				joc.desferMoviment();
 				finestra.refreshGui();
-				lblNewLabel.setText(String.format("moviment desfet!") );
+				lblEstat.setText(String.format("Moviment desfet!") );
 			} catch (Exception e) {
-				lblNewLabel.setText(e.getMessage());
+				lblEstat.setText(e.getMessage());
 			}
 			return;
 		}
@@ -157,12 +156,20 @@ public class Finestra implements  ActionListener {
 		int y = Integer.parseInt(ss[1]);
 		
 		try {
-			joc.mouCavall(x, y);
-			finestra.refreshGui();
-			lblNewLabel.setText(String.format("moviment %s,%s correcte", x,y) );
+			
+
+			if(!joc.acabat()){
+				joc.mouCavall(x, y);
+				finestra.refreshGui();
+				lblEstat.setText(String.format("Moviment %s,%s correcte", x,y) );
+			}
+
+			if(joc.acabat())
+				lblEstat.setText(String.format("Joc acabat, HAS GUANYAT!"));
+				
 			
 		} catch (Exception e1) {
-			lblNewLabel.setText(e1.getMessage());
+			lblEstat.setText(e1.getMessage());
 		}
 		
 	}

@@ -1,7 +1,5 @@
 package Domini;
 
-import java.util.Stack;
-
 public class Joc {
 
 	private int mida;
@@ -17,13 +15,14 @@ public class Joc {
 	public void mouCavall( int x, int y) throws Exception {
 		
 		if (this.comprovarMovimentCavall(x,y)) { 
+			this.taulell.moure(x, y, String.valueOf(this.apuntador.moviments+1));
 			this.apuntador.guardar(x,y);
-			this.taulell.moure(x, y, String.valueOf(this.apuntador.moviments));
 		}
 	}
 	public void desferMoviment() throws Exception {
 		if (this.apuntador.moviments==0)
 			throw new Exception("No hi ha més moviments per desfer");
+		
 		Coord p = this.apuntador.ultimMoviment();
 		this.taulell.esborrar(p.x, p.y);
 		this.apuntador.desferUltimMoviment();
@@ -51,9 +50,11 @@ public class Joc {
 	 * Métode que comprova el moviment del cavall
 	 */
 	public boolean comprovarMovimentCavall(int x, int y) throws Exception {
-		if(this.apuntador.moviments==0) return true;
+		
+		if(this.apuntador.moviments==0) return true; //El primer moviment sempre és vàlid
 
 		Coord actual = this.apuntador.ultimMoviment();
+		
 		if(actual.y-2 == y && actual.x-1 == x) return true;
 		if(actual.y-2 == y && actual.x+1 == x) return true;
 		if(actual.y-1 == y && actual.x-2 == x) return true;

@@ -2,7 +2,7 @@ package Domini;
 
 public class Taulell {
 
-	private String CasellaBuida = "   ";
+	private String CASELLA_BUIDA = " ";
 	private int mida = 0;
 	private Casella[][] taulell; // El taulell és un array de dos dimensions de caselles
 
@@ -22,36 +22,37 @@ public class Taulell {
 	private void inicialitzar(){
 		for (int i = 0; i < this.mida; ++i){
 			for (int j = 0; j < this.mida; ++j){
-				this.taulell[i][j] = new Casella(this.CasellaBuida);
+				this.taulell[i][j] = new Casella(this.CASELLA_BUIDA);
 			}
 		}
 	}
-
-	
 	
 	/*
-	 * Métode que guarda a la coordenada el valor del comptador  
+	 * Métode que posa el valor a la coordenada  
 	 */
 	public void moure(int x, int y, String value) throws Exception {
 
 		if ((x < 1 || x > this.mida) || (y < 1 || y > this.mida)) 
 			throw new Exception("Error fila i/o columna fora del taullel");
 
-		if (this.getContingut(x, y) != this.CasellaBuida) 
+		if (this.getContingut(x, y) != this.CASELLA_BUIDA) 
 			throw new Exception("La posició ja està ocupada");
 				
 		this.taulell[x-1][y-1].setContingut(value);
 	}
 	
+	/*
+	 * Métode que esborra el contingut de la coordenada  
+	 */
 	public void esborrar(int x, int y) throws Exception {
 
 		if ((x < 1 || x > this.mida) || (y < 1 || y > this.mida)) 
 			throw new Exception("Error fila i/o columna fora del taullel");
 
-		if (this.getContingut(x, y) == this.CasellaBuida) 
+		if (this.getContingut(x, y) == this.CASELLA_BUIDA) 
 			throw new Exception("La posició ja està esborrada");
 				
-		this.taulell[x-1][y-1].setContingut(CasellaBuida);
+		this.taulell[x-1][y-1].setContingut(CASELLA_BUIDA);
 	}	
 		
 	/*
