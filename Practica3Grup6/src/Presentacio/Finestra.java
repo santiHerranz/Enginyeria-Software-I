@@ -2,21 +2,18 @@ package Presentacio;
 
 import java.awt.EventQueue;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -27,7 +24,7 @@ import javax.swing.border.LineBorder;
 import Domini.Coord;
 import Domini.Joc;
 import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.GridBagLayout;
 
 import javax.swing.SwingConstants;
 
@@ -53,6 +50,7 @@ public class Finestra implements  ActionListener {
 			        joc = new Joc(MIDA);
 
 					finestra = new Finestra();
+					finestra.frame.setBounds(0, 0, 600, 600);
 
 					finestra.refreshGui();
 			        finestra.frame.pack();
@@ -81,7 +79,8 @@ public class Finestra implements  ActionListener {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 500, 500);
+		frame.setBounds(0, 0, 600, 600);
+		frame.setMinimumSize(new Dimension(600, 600));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		lblEstat = new JLabel(" ");
@@ -105,6 +104,8 @@ public class Finestra implements  ActionListener {
         // create the chess board squares
         Insets buttonMargin = new Insets(0,0,0,0);
 
+        int w = frame.getSize().width/MIDA;
+        
         Color toogle = Color.BLACK;
         for (int ii = 0; ii < MIDA; ii++) {
             for (int jj = 0; jj < MIDA; jj++) {
@@ -114,9 +115,10 @@ public class Finestra implements  ActionListener {
                 b.setToolTipText((ii+1) +","+ (jj+1));
                 b.setForeground(Color.GRAY);
                 b.setMargin(buttonMargin);
+                b.setLayout(new GridBagLayout()); // Estableix imatge al centre
 
                 ImageIcon icon = new ImageIcon(
-                        new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB));
+                        new BufferedImage(w, w, BufferedImage.TYPE_INT_ARGB));
                 b.setIcon(icon);
                 b.setBackground(toogle);
                 b.addActionListener(this);
@@ -197,7 +199,7 @@ public class Finestra implements  ActionListener {
 		try {
 			
 
-			if(!joc.acabat()){
+			if(!joc.acabat() && !joc.ofegat()){
 				joc.mouCavall(x, y);
 				finestra.refreshGui();
 //				lblEstat.setText(String.format("Moviment %s,%s correcte", x,y) );
