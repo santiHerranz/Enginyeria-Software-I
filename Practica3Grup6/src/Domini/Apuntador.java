@@ -20,7 +20,7 @@ public class Apuntador {
 		moviments++;
 	}
 	
-	public Coord ultimMoviment(){
+	public Coord ultimMoviment() throws Exception{
 		return historial.peek();
 	}
 

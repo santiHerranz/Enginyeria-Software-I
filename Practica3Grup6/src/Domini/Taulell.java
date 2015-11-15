@@ -11,6 +11,8 @@ public class Taulell {
 	 * Constructor de taulell
 	 */
 	Taulell(int mida) {
+		if(mida <3) throw new  IllegalArgumentException("La mida no pot ser inferior a 3");
+		if(mida >10) throw new  IllegalArgumentException("La mida no pot ser superior a 10");
 		this.mida = mida;
 		this.taulell = new Casella[mida][mida];
 		inicialitzar();
@@ -26,6 +28,18 @@ public class Taulell {
 			}
 		}
 	}
+	
+	public boolean esCasellaBuida(int x, int y) throws Exception {
+
+		if ((x < 1 || x > this.mida) || (y < 1 || y > this.mida)) 
+			throw new Exception("Error fila i/o columna fora del taullel");
+
+		if (this.getContingut(x, y) != this.CASELLA_BUIDA) 
+			return false;
+		
+		return true;
+	}
+	
 	
 	/*
 	 * Métode que posa el valor a la coordenada  

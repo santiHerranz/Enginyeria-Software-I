@@ -36,15 +36,41 @@ public class Joc {
 	}
 	
 	/*
-	 * Métode que comprova si el joc ha acabat
+	 * Métode que comprovar si el joc ha acabat
 	 */
 	public boolean acabat(){
 		return this.apuntador.moviments == this.mida*this.mida;		
+	}
+	/*
+	 * Métode que comprovar si el cavall està ofegat
+	 */
+	public boolean ofegat() {
+		if(this.apuntador.moviments==0) return false; //El primer moviment sempre és vàlid
+
+	        String[][] sb = this.estatTaulell();
+	        for (int x = 0; x < sb.length; x++) {
+				for (int y = 0; y < sb[x].length; y++) {
+					try {
+						if (comprovarMovimentCavall(x,y))
+							if (this.taulell.esCasellaBuida(x, y))
+								return false;
+					} catch (Exception e) {}
+				}
+	        }
+			return true;
 	}
 	
 	public int moviments() {
 		return this.apuntador.moviments;
 	}
+
+	public Coord posicioCavall() {
+		try{
+			return this.apuntador.ultimMoviment();
+		} catch(Exception e) {
+			return null;
+		}
+	}	
 	
 	/*
 	 * Métode que comprova el moviment del cavall

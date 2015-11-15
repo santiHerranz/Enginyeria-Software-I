@@ -2,23 +2,33 @@ package Presentacio;
 
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import Domini.Coord;
 import Domini.Joc;
 import java.awt.Font;
+import java.awt.Graphics;
+
 import javax.swing.SwingConstants;
 
 public class Finestra implements  ActionListener {
@@ -26,9 +36,8 @@ public class Finestra implements  ActionListener {
 	private JFrame frame;
     static final int MIDA = 5;
     public JButton[][] casellesTaulell = new JButton[MIDA][MIDA];
-    static JButton btnDesfer;
-    
     static JLabel lblEstat;
+    static JButton btnDesfer;
     
     private static Finestra finestra;
     static Joc joc;    
@@ -38,19 +47,20 @@ public class Finestra implements  ActionListener {
 	 */
 	public static void main(String[] args) {
 
-		
-		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					finestra = new Finestra();
 			        joc = new Joc(MIDA);
 
-			        finestra.refreshGui();
-					
+					finestra = new Finestra();
+
+					finestra.refreshGui();
+			        finestra.frame.pack();
+			        finestra.frame.setLocationRelativeTo(null); // center the application window
 					finestra.frame.setVisible(true);
 
 					lblEstat.setText("Clica sobre el taulell per col·locar el cavall");
+
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -89,7 +99,7 @@ public class Finestra implements  ActionListener {
 		
 		JPanel chessBoard;
     	
-        chessBoard = new JPanel(new GridLayout(0, 5));
+        chessBoard = new JPanel(new GridLayout(0, Finestra.MIDA));
         chessBoard.setBorder(new LineBorder(Color.BLACK));
     	
         // create the chess board squares
@@ -100,10 +110,11 @@ public class Finestra implements  ActionListener {
             for (int jj = 0; jj < MIDA; jj++) {
                 JButton b = new JButton();
         		b.setHorizontalTextPosition(SwingConstants.CENTER);
-        		b.setFont(new Font("Tahoma", Font.PLAIN, 24));
+        		b.setFont(new Font("Tahoma", Font.PLAIN, 18));
                 b.setToolTipText((ii+1) +","+ (jj+1));
                 b.setForeground(Color.GRAY);
                 b.setMargin(buttonMargin);
+
                 ImageIcon icon = new ImageIcon(
                         new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB));
                 b.setIcon(icon);
@@ -125,11 +136,39 @@ public class Finestra implements  ActionListener {
 
     public final void refreshGui(){
         String[][] sb = joc.estatTaulell();
-		for (int x = 0; x < sb.length; x++) {
+
+        for (int x = 0; x < sb.length; x++) {
 			for (int y = 0; y < sb[x].length; y++) {
 				finestra.casellesTaulell[x][y].setText(sb[x][y]);
+				finestra.casellesTaulell[x][y].removeAll();
+				finestra.casellesTaulell[x][y].repaint();
 			}
 		} 
+		
+
+		Coord cavall = joc.posicioCavall();
+
+		if(cavall!=null){
+	        BufferedImage image;
+			try {
+				String imageSrc;
+				if (joc.acabat()) 
+					imageSrc="cavall_guanyador.png";
+				else if (joc.ofegat())
+					imageSrc = "cavall_ofegat.png";
+				else 
+					imageSrc = "cavall.png";
+				
+				image = ImageIO.read(new File("res/"+ imageSrc));
+		        JLabel picLabel = new JLabel(new ImageIcon(image));
+		        finestra.casellesTaulell[cavall.x-1][cavall.y-1].add(picLabel);
+		        finestra.casellesTaulell[cavall.x-1][cavall.y-1].repaint();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 		//btnDesfer.setEnabled(joc.moviments()>0); // Es pot deasctivar el botó si no hi ha moviments que desfer
     }	
 	
@@ -164,6 +203,9 @@ public class Finestra implements  ActionListener {
 				lblEstat.setText(String.format("Moviment %s,%s correcte", x,y) );
 			}
 
+			if(joc.ofegat())
+				lblEstat.setText(String.format("El cavall està ofegat, pots desfer els moviments."));
+			
 			if(joc.acabat())
 				lblEstat.setText(String.format("Joc acabat, HAS GUANYAT!"));
 				
@@ -173,5 +215,6 @@ public class Finestra implements  ActionListener {
 		}
 		
 	}
+
 
 }
