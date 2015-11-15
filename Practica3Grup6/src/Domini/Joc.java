@@ -7,6 +7,8 @@ public class Joc {
 	private Apuntador apuntador;
 	
 	public Joc(int mida){
+		if(mida <3) throw new  IllegalArgumentException("La mida no pot ser inferior a 3");
+		if(mida >10) throw new  IllegalArgumentException("La mida no pot ser superior a 10");
 		this.mida = mida;
 		this.taulell = new Taulell(mida);
 		this.apuntador = new Apuntador();
@@ -73,10 +75,16 @@ public class Joc {
 		}
 	}	
 	
+	
+	
+	
+	
+	
+	
 	/*
 	 * Métode que comprova el moviment del cavall
 	 */
-	public boolean comprovarMovimentCavall(int x, int y) throws Exception {
+	private boolean comprovarMovimentCavall(int x, int y) throws Exception {
 		
 		if(this.apuntador.moviments==0) return true; //El primer moviment sempre és vàlid
 

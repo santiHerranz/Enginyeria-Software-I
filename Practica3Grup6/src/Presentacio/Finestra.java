@@ -34,13 +34,13 @@ import javax.swing.SwingConstants;
 public class Finestra implements  ActionListener {
 
 	private JFrame frame;
-    static final int MIDA = 5;
-    public JButton[][] casellesTaulell = new JButton[MIDA][MIDA];
-    static JLabel lblEstat;
-    static JButton btnDesfer;
+    private static final int MIDA = 5;
+    private JButton[][] casellesTaulell = new JButton[MIDA][MIDA];
+    private static JLabel lblEstat;
+    private static JButton btnDesfer;
     
     private static Finestra finestra;
-    static Joc joc;    
+    private static Joc joc;    
     
 	/**
 	 * Launch the application.
@@ -134,7 +134,7 @@ public class Finestra implements  ActionListener {
 	
 	
 
-    public final void refreshGui(){
+	private final void refreshGui(){
         String[][] sb = joc.estatTaulell();
 
         for (int x = 0; x < sb.length; x++) {

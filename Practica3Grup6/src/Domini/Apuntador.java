@@ -12,7 +12,7 @@ public class Apuntador {
 		this.historial = new Stack<Coord>();
 	}
 
-	public Stack<Coord> historial ;
+	private Stack<Coord> historial ;
 	
 	
 	public void guardar(int x, int y) {

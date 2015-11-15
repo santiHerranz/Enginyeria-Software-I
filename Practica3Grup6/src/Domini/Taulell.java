@@ -5,14 +5,11 @@ public class Taulell {
 	private String CASELLA_BUIDA = " ";
 	private int mida = 0;
 	private Casella[][] taulell; // El taulell és un array de dos dimensions de caselles
-
 	
 	/*
 	 * Constructor de taulell
 	 */
-	Taulell(int mida) {
-		if(mida <3) throw new  IllegalArgumentException("La mida no pot ser inferior a 3");
-		if(mida >10) throw new  IllegalArgumentException("La mida no pot ser superior a 10");
+	public Taulell(int mida) {
 		this.mida = mida;
 		this.taulell = new Casella[mida][mida];
 		inicialitzar();
@@ -69,16 +66,8 @@ public class Taulell {
 		this.taulell[x-1][y-1].setContingut(CASELLA_BUIDA);
 	}	
 		
-	/*
-	 * Métode que obté el valor guardat de la coordenada   
-	 */
-	private String getContingut(int x, int y){
-		return this.taulell[x-1][y-1].getContingut();
-	}
-	
-	
-		public String[][] estatTaulell(){
-			String[][] sb = new String[this.mida][this.mida];
+	public String[][] estatTaulell(){
+		String[][] sb = new String[this.mida][this.mida];
 			
 		for (int x = 0; x < this.mida; x++) {
 			for (int y = 0; y < this.mida; y++) {
@@ -87,8 +76,13 @@ public class Taulell {
 		}
 		return sb;
 	}	
-	
-	
+
+	/*
+	 * Métode que obté el valor guardat de la coordenada   
+	 */
+	private String getContingut(int x, int y){
+		return this.taulell[x-1][y-1].getContingut();
+	}
 	
 }
 	
