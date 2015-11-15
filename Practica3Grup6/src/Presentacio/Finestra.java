@@ -201,7 +201,7 @@ public class Finestra implements  ActionListener {
 				joc.mouCavall(x, y);
 				finestra.refreshGui();
 //				lblEstat.setText(String.format("Moviment %s,%s correcte", x,y) );
-				lblEstat.setText(String.format("Correcte, queden %s moviments per guanyar", MIDA*MIDA - joc.moviments()) );
+				lblEstat.setText(String.format("(%s,%s) Correcte, queden %s moviments per guanyar", x, y , MIDA*MIDA - joc.moviments()) );
 			}
 
 			if(joc.ofegat())
