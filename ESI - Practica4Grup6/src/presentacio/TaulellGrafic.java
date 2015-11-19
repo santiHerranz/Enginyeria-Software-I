@@ -40,7 +40,7 @@ public class TaulellGrafic extends JFrame {
     private final Color CASELLA_BLANCA = Color.WHITE;
     
     /*
-     * 
+     * Constructor
      */
 	TaulellGrafic(Joc joc) throws Exception{
 		
@@ -107,10 +107,7 @@ public class TaulellGrafic extends JFrame {
 			imatgeCavall = new ImageIcon(ImageIO.read(new File("res/cavall.png")));
 			imatgeCavallOfegat = new ImageIcon(ImageIO.read(new File("res/cavall_ofegat.png")));
 			imatgeCavallGuanyador = new ImageIcon(ImageIO.read(new File("res/cavall_guanyador.png")));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (IOException e) {}
 		
 		refreshGui();
         

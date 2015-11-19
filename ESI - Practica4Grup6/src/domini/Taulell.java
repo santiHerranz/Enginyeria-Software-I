@@ -12,19 +12,15 @@ public class Taulell {
 	public Taulell(int mida) {
 		this.mida = mida;
 		this.taulell = new Casella[mida][mida];
-		inicialitzar();
-	}
-	
-	/*
-	 * Métode que estableix el taulell a les condicions inicials
-	 */
-	private void inicialitzar(){
+
+		//Crear caselles del taulell
 		for (int i = 0; i < this.mida; ++i){
 			for (int j = 0; j < this.mida; ++j){
 				this.taulell[i][j] = new Casella(this.CASELLA_BUIDA);
 			}
 		}
 	}
+	
 	
 	public boolean esCasellaBuida(int x, int y) throws Exception {
 

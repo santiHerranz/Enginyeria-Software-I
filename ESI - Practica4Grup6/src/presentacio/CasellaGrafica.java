@@ -22,9 +22,6 @@ public class CasellaGrafica extends JButton {
     Insets buttonMargin = new Insets(0,0,0,0);
 
     
-    /*
-     * @return sasda 
-     */
 	CasellaGrafica(int ii, int jj, int w){
 
 		//Coordenada
