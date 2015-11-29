@@ -5,7 +5,11 @@ import java.util.Stack;
 public class Apuntador {
 	
 	
-	public int moviments = 0;
+	private int moviments = 0;
+	
+	public int getMoviments () {
+		return this.moviments;
+	}	
 
 	Apuntador(){
 		this.moviments = 0;
@@ -21,10 +25,15 @@ public class Apuntador {
 	}
 	
 	public Coord ultimMoviment() throws Exception{
+		if (historial.empty())
+			throw new Exception ("Error últim moviment:  no hi ha cap moviment");
 		return historial.peek();
 	}
 
-	public Coord desferUltimMoviment(){
+	public Coord desferUltimMoviment() throws Exception{
+		if (historial.empty())
+			throw new Exception ("Error desfer últim moviment:  no hi ha cap moviment");
+		
 		moviments--;
 		return historial.pop();
 	}

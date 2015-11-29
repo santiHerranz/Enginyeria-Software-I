@@ -17,13 +17,11 @@ public class Joc {
 	public void mouCavall( int x, int y) throws Exception {
 		
 		if (this.comprovarMovimentCavall(x,y)) { 
-			this.taulell.moure(x, y, String.valueOf(this.apuntador.moviments+1));
+			this.taulell.moure(x, y, String.valueOf(this.apuntador.getMoviments()+1));
 			this.apuntador.guardar(x,y);
 		}
 	}
 	public void desferMoviment() throws Exception {
-		if (this.apuntador.moviments==0)
-			throw new Exception("No hi ha més moviments per desfer");
 		
 		Coord p = this.apuntador.ultimMoviment();
 		this.taulell.esborrar(p.x, p.y);
@@ -41,14 +39,14 @@ public class Joc {
 	 * Métode que comprova si el joc ha acabat
 	 */
 	public boolean acabat(){
-		return this.apuntador.moviments == this.mida*this.mida;		
+		return this.apuntador.getMoviments() == this.mida*this.mida;		
 	}
 	
 	/*
 	 * Métode que comprova si el cavall està ofegat
 	 */
 	public boolean ofegat() {
-		if(this.apuntador.moviments==0) return false; //El primer moviment sempre és vàlid
+		if(this.apuntador.getMoviments()==0) return false; //El primer moviment sempre és vàlid
 
 	        String[][] sb = this.estatTaulell();
 	        for (int x = 0; x < sb.length; x++) {
@@ -64,7 +62,7 @@ public class Joc {
 	}
 	
 	public int moviments() {
-		return this.apuntador.moviments;
+		return this.apuntador.getMoviments();
 	}
 
 	public Coord posicioCavall() {
@@ -86,7 +84,7 @@ public class Joc {
 	 */
 	private boolean comprovarMovimentCavall(int x, int y) throws Exception {
 		
-		if(this.apuntador.moviments==0) return true; //El primer moviment sempre és vàlid
+		if(this.apuntador.getMoviments()==0) return true; //El primer moviment sempre és vàlid
 
 		Coord actual = this.apuntador.ultimMoviment();
 		
