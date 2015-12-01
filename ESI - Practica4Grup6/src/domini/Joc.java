@@ -2,11 +2,11 @@ package domini;
 
 public class Joc {
 
-	public static final int CASELLA_BUIDA = -1;
+	public final static int CASELLA_BUIDA = -1;
 
-	public static final int STATUS_NORMAL = 1;
-	public static final int STATUS_ACABAT = 100;
-	public static final int STATUS_OFEGAT = 8;
+	public final static int STATUS_NORMAL = 1;
+	public final static int STATUS_ACABAT = 100;
+	public final static int STATUS_OFEGAT = 8;
 
 	private Taulell taulell;
 	private int mida;

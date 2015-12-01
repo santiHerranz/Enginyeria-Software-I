@@ -43,10 +43,7 @@ public class Inici {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
-	public Inici() {
+	private Inici() {
 		initialize();
 	}
 

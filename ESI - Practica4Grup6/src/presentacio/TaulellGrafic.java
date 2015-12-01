@@ -161,7 +161,7 @@ public class TaulellGrafic extends JFrame {
 						int actualX = actual[0];
 						int actualY = actual[1];
 						
-						if(joc.estatTaulell()[x][y] == -1 )
+						if(joc.estatTaulell()[x][y] == Joc.CASELLA_BUIDA )
 							if (joc.comprovarMovimentCavall(x, y, actualX, actualY))  
 								cg.setBackground(CASELLA_SEGUENT);
 					
@@ -180,10 +180,8 @@ public class TaulellGrafic extends JFrame {
 	}
 	
 	private void casellaClick(CasellaGrafica casella){
-
-		String estat = joc.mouCavall(casella.getFila(), casella.getColumna());
+		lblEstat.setText(joc.mouCavall(casella.getFila(),casella.getColumna()));
 		this.refreshGui();
-		lblEstat.setText(estat);
 	}
 	
 }
