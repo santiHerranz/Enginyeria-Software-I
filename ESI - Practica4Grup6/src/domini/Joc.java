@@ -20,7 +20,9 @@ public class Joc {
 		if (this.comprovarMovimentCavall(x,y)) { 
 			this.taulell.moure(x, y, String.valueOf(this.apuntador.getMoviments()+1));
 			this.apuntador.guardar(x,y);
-		}
+		}else		
+			throw new Exception(String.format("El moviment %d, %d no �s v�lid!, ha de ser el salt del cavall dels escacs.", x, y));
+
 	}
 	public void desferMoviment() throws Exception {
 		
@@ -46,17 +48,17 @@ public class Joc {
 	/*
 	 * M�tode que comprova si el cavall est� ofegat
 	 */
-	public boolean ofegat() {
+	public boolean ofegat() throws Exception {
 		if(this.apuntador.getMoviments()==0) return false; //El primer moviment sempre �s v�lid
 
 	        String[][] sb = this.estatTaulell();
 	        for (int x = 0; x < sb.length; x++) {
 				for (int y = 0; y < sb[x].length; y++) {
-					try {
-						if (this.taulell.esCasellaBuida(x+1, y+1))
-							if (comprovarMovimentCavall(x+1,y+1))
-								return false;
-					} catch (Exception e) {}
+					if (this.taulell.esCasellaBuida(x+1, y+1))
+						if (comprovarMovimentCavall(x+1,y+1)) return false;
+						else throw new Exception(String.format("El moviment %d, %d no �s v�lid!, ha de ser el salt del cavall dels escacs.", x, y));
+
+					
 				}
 	        }
 			return true;
@@ -91,7 +93,7 @@ public class Joc {
 	/*
 	 * M�tode que comprova el moviment del cavall
 	 */
-	public boolean comprovarMovimentCavall(int x, int y) throws Exception {
+	public boolean comprovarMovimentCavall(int x, int y) {
 		
 		if(this.apuntador.getMoviments()==0) return true; //El primer moviment sempre �s v�lid
 
@@ -105,7 +107,7 @@ public class Joc {
 		if(actual.y+1 == y && actual.x+2 == x) return true;
 		if(actual.y+2 == y && actual.x-1 == x) return true;
 		if(actual.y+2 == y && actual.x+1 == x) return true;
-		throw new Exception(String.format("El moviment %d, %d no �s v�lid!, ha de ser el salt del cavall dels escacs.", x, y));
+		return false;
 	}
 
 }
