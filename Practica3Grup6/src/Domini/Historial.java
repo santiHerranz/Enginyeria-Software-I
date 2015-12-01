@@ -2,7 +2,7 @@ package Domini;
 
 import java.util.Stack;
 
-public class Apuntador {
+public class Historial {
 	
 	
 	private int moviments = 0;
@@ -11,7 +11,7 @@ public class Apuntador {
 		return this.moviments;
 	}	
 
-	Apuntador(){
+	Historial(){
 		this.moviments = 0;
 		this.historial = new Stack<Coord>();
 	}
@@ -26,13 +26,13 @@ public class Apuntador {
 	
 	public Coord ultimMoviment() throws Exception{
 		if (historial.empty())
-			throw new Exception ("Error últim moviment:  no hi ha cap moviment");
+			throw new Exception ("Error ï¿½ltim moviment:  no hi ha cap moviment");
 		return historial.peek();
 	}
 
 	public Coord desferUltimMoviment() throws Exception{
 		if (historial.empty())
-			throw new Exception ("Error desfer últim moviment:  no hi ha cap moviment");
+			throw new Exception ("Error desfer ï¿½ltim moviment:  no hi ha cap moviment");
 		
 		moviments--;
 		return historial.pop();

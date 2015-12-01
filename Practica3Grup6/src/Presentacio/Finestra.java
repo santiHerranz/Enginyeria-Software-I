@@ -57,7 +57,7 @@ public class Finestra implements  ActionListener {
 			        finestra.frame.setLocationRelativeTo(null); // center the application window
 					finestra.frame.setVisible(true);
 
-					lblEstat.setText("Clica sobre el taulell per col·locar el cavall");
+					lblEstat.setText("Clica sobre el taulell per colï¿½locar el cavall");
 
 					
 				} catch (Exception e) {
@@ -125,7 +125,7 @@ public class Finestra implements  ActionListener {
                 chessBoard.add(b);
                 casellesTaulell[ii][jj] = b;
 
-                if(toogle != Color.BLACK) toogle = Color.BLACK; else toogle = Color.WHITE;
+                if(toogle != Color.BLACK) toogle = Color.black; else toogle = Color.WHITE;
             }
         }
         
@@ -166,19 +166,17 @@ public class Finestra implements  ActionListener {
 		        finestra.casellesTaulell[cavall.x-1][cavall.y-1].add(picLabel);
 		        finestra.casellesTaulell[cavall.x-1][cavall.y-1].repaint();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 
-		//btnDesfer.setEnabled(joc.moviments()>0); // Es pot deasctivar el botó si no hi ha moviments que desfer
+		//btnDesfer.setEnabled(joc.moviments()>0); // Es pot deasctivar el botï¿½ si no hi ha moviments que desfer
     }	
 	
 	
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
-		if(arg0.getSource().equals(btnDesfer)) {
+		if(arg0.getSource() == btnDesfer) {
 			try {
 				joc.desferMoviment();
 				finestra.refreshGui();
@@ -202,12 +200,11 @@ public class Finestra implements  ActionListener {
 			if(!joc.acabat() && !joc.ofegat()){
 				joc.mouCavall(x, y);
 				finestra.refreshGui();
-//				lblEstat.setText(String.format("Moviment %s,%s correcte", x,y) );
 				lblEstat.setText(String.format("(%s,%s) Correcte, queden %s moviments per guanyar", x, y , MIDA*MIDA - joc.moviments()) );
 			}
 
 			if(joc.ofegat())
-				lblEstat.setText(String.format("El cavall està ofegat, pots desfer els moviments."));
+				lblEstat.setText(String.format("El cavall estï¿½ ofegat, pots desfer els moviments."));
 			
 			if(joc.acabat())
 				lblEstat.setText(String.format("Joc acabat, HAS GUANYAT!"));

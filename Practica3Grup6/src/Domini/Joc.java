@@ -4,14 +4,14 @@ public class Joc {
 
 	private int mida;
 	private Taulell taulell;
-	private Apuntador apuntador;
+	private Historial apuntador;
 	
 	public Joc(int mida){
 		if(mida <3) throw new  IllegalArgumentException("La mida no pot ser inferior a 3");
 		if(mida >10) throw new  IllegalArgumentException("La mida no pot ser superior a 10");
 		this.mida = mida;
 		this.taulell = new Taulell(mida);
-		this.apuntador = new Apuntador();
+		this.apuntador = new Historial();
 	}
 	
 	public void mouCavall( int x, int y) throws Exception {
@@ -29,24 +29,24 @@ public class Joc {
 	}	
 
 	/*
-	 * Métode per obtenir la representació del taulell
+	 * Mï¿½tode per obtenir la representaciï¿½ del taulell
 	 */
 	public String[][] estatTaulell() {
 		return this.taulell.estatTaulell();
 	}
 	
 	/*
-	 * Métode que comprova si el joc ha acabat
+	 * Mï¿½tode que comprova si el joc ha acabat
 	 */
 	public boolean acabat(){
 		return this.apuntador.getMoviments() == this.mida*this.mida;		
 	}
 	
 	/*
-	 * Métode que comprova si el cavall està ofegat
+	 * Mï¿½tode que comprova si el cavall estï¿½ ofegat
 	 */
 	public boolean ofegat() {
-		if(this.apuntador.getMoviments()==0) return false; //El primer moviment sempre és vàlid
+		if(this.apuntador.getMoviments()==0) return false; //El primer moviment sempre ï¿½s vï¿½lid
 
 	        String[][] sb = this.estatTaulell();
 	        for (int x = 0; x < sb.length; x++) {
@@ -80,11 +80,11 @@ public class Joc {
 	
 	
 	/*
-	 * Métode que comprova el moviment del cavall
+	 * Mï¿½tode que comprova el moviment del cavall
 	 */
 	private boolean comprovarMovimentCavall(int x, int y) throws Exception {
 		
-		if(this.apuntador.getMoviments()==0) return true; //El primer moviment sempre és vàlid
+		if(this.apuntador.getMoviments()==0) return true; //El primer moviment sempre ï¿½s vï¿½lid
 
 		Coord actual = this.apuntador.ultimMoviment();
 		
@@ -96,7 +96,7 @@ public class Joc {
 		if(actual.y+1 == y && actual.x+2 == x) return true;
 		if(actual.y+2 == y && actual.x-1 == x) return true;
 		if(actual.y+2 == y && actual.x+1 == x) return true;
-		throw new Exception(String.format("El moviment %d, %d no és vàlid!, ha de ser el salt del cavall dels escacs.", x, y));
+		throw new Exception(String.format("El moviment %d, %d no ï¿½s vï¿½lid!, ha de ser el salt del cavall dels escacs.", x, y));
 	}
 
 }
