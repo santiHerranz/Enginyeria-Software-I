@@ -7,24 +7,16 @@ import javax.swing.JFrame;
 import domini.Joc;
 
 import javax.swing.JButton;
-import java.awt.BorderLayout;
-import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.Action;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.FlowLayout;
-import javax.swing.JPanel;
-import javax.swing.BoxLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.Component;
 import javax.swing.Box;
 import java.awt.Dimension;
@@ -43,6 +35,7 @@ public class Inici {
 				try {
 					Inici window = new Inici();
 					window.frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

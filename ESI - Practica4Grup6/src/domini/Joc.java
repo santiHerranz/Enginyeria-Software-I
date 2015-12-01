@@ -2,111 +2,142 @@ package domini;
 
 public class Joc {
 
-	
-	public int mida;
+	public static final int CASELLA_BUIDA = -1;
+
 	private Taulell taulell;
-	private Historial apuntador;
-	
+
+	private int mida;
+	public int getMida() {
+		return mida;
+	}
+
+	private Historial historial;
+	public Historial getHistorial() {
+		return historial;
+	}
+
 	public Joc(int mida){
 		if(mida <3) throw new  IllegalArgumentException("La mida no pot ser inferior a 3");
 		if(mida >10) throw new  IllegalArgumentException("La mida no pot ser superior a 10");
+
 		this.mida = mida;
 		this.taulell = new Taulell(mida);
-		this.apuntador = new Historial();
+		this.historial = new Historial();
 	}
 	
-	public void mouCavall( int x, int y) throws Exception {
-		
-		if (this.comprovarMovimentCavall(x,y)) { 
-			this.taulell.moure(x, y, String.valueOf(this.apuntador.getMoviments()+1));
-			this.apuntador.guardar(x,y);
-		}else		
-			throw new Exception(String.format("El moviment %d, %d no ï¿½s vï¿½lid!, ha de ser el salt del cavall dels escacs.", x, y));
+	public String mouCavall( int x, int y) {
 
-	}
-	public void desferMoviment() throws Exception {
+		if(this.historial.getMoviments()>0) {
+			
+			if(this.acabat())
+				return String.format("Joc acabat, HAS GUANYAT!");
+			
+			if(this.ofegat())
+				return String.format("El cavall està ofegat, pots desfer els moviments.");
+			
+			try {
+				int[] actual = this.historial.ultimMoviment();
+				
+				int actualX = actual[0];
+				int actualY = actual[1];
+				
+				if (!this.comprovarMovimentCavall(x, y, actualX, actualY))  
+					throw new Exception(String.format("El moviment (%s,%s) no es valid!, ha de ser el salt del cavall dels escacs.", x+1, y+1));
+
+			} catch (Exception e) {
+				return e.getMessage();
+			}
+		}
+
+		try {
+			this.taulell.omplirCasella(x, y, this.historial.getMoviments()+1);
+
+			this.historial.guardar(x,y);
+			return String.format("(%s,%s) Correcte, queden %s moviments per guanyar", x+1, y+1 , this.mida*this.mida - this.historial.getMoviments());		
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
 		
-		Coord p = this.apuntador.ultimMoviment();
-		this.taulell.esborrar(p.getCoord()[0], p.getCoord()[1]);
-		this.apuntador.desferUltimMoviment();
+	}
+
+	public String desferMoviment() {
+			int p[] = this.historial.ultimMoviment();
+			if(p == null)
+				return "No hi ha més moviments!";
+			else {
+				try {
+					this.taulell.omplirCasella(p[0], p[1], Joc.CASELLA_BUIDA);
+					this.historial.desferUltimMoviment();
+					
+					if(this.historial.getMoviments()==0)
+						return "Ultim moviment desfet!";
+					return "Moviment desfet!";
+				} catch (Exception e) {
+					return e.getMessage();
+				}
+			}
 	}	
 
 	/*
-	 * Mï¿½tode per obtenir la representaciï¿½ del taulell
+	 * Metode per obtenir la representacio del taulell
 	 */
-	public String[][] estatTaulell() {
+	public int[][] estatTaulell() {
 		return this.taulell.estatTaulell();
 	}
 	
 	/*
-	 * Mï¿½tode que comprova si el joc ha acabat
+	 * Metode que comprova si el joc ha acabat
 	 */
 	public boolean acabat(){
-		return this.apuntador.getMoviments() == this.mida*this.mida;		
+		return this.historial.getMoviments() == this.mida*this.mida;		
 	}
 	
 	/*
-	 * Mï¿½tode que comprova si el cavall estï¿½ ofegat
+	 * Metode que comprova si el cavall esta ofegat
 	 */
-	public boolean ofegat() throws Exception {
-		if(this.apuntador.getMoviments()==0) return false; //El primer moviment sempre ï¿½s vï¿½lid
+	public boolean ofegat() {
+		if(this.historial.getMoviments()==0) return false; //El primer moviment sempre es valid
 
-	        String[][] sb = this.estatTaulell();
+		int[] actual = this.historial.ultimMoviment();
+		if(actual!= null){
+			int actualX = actual[0];
+			int actualY = actual[1];
+
+			int[][] sb = this.estatTaulell();
 	        for (int x = 0; x < sb.length; x++) {
 				for (int y = 0; y < sb[x].length; y++) {
-					if (this.taulell.esCasellaBuida(x+1, y+1))
-						if (comprovarMovimentCavall(x+1,y+1)) return false;
-						else throw new Exception(String.format("El moviment %d, %d no ï¿½s vï¿½lid!, ha de ser el salt del cavall dels escacs.", x, y));
 
-					
+					try {
+						if (this.taulell.esCasellaBuida(x, y)) {
+							if (this.comprovarMovimentCavall(x, y, actualX, actualY))
+								return false;
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 	        }
-			return true;
-	}
-	
-	public int moviments() {
-		return this.apuntador.getMoviments();
-	}
-
-	public Coord posicioCavall() {
-		try{
-			return this.apuntador.ultimMoviment();
-		} catch(Exception e) {
-			return null;
 		}
-	}	
-	
-	
-	
-	/*
-	 * Mï¿½tode que comprova el moviment del cavall
-	 */
-	public boolean casellaBuida(int x, int y) {
-		try {
-			return this.taulell.esCasellaBuida(x, y);
-		} catch (Exception e) {return true;	}
+		return true;
 	}
-	
-	
-	
-	
-	/*
-	 * Mï¿½tode que comprova el moviment del cavall
-	 */
-	public boolean comprovarMovimentCavall(int x, int y) {
-		
-		if(this.apuntador.getMoviments()==0) return true; //El primer moviment sempre ï¿½s vï¿½lid
 
-		Coord actual = this.apuntador.ultimMoviment();
-		
-		if(actual.y-2 == y && actual.x-1 == x) return true;
-		if(actual.y-2 == y && actual.x+1 == x) return true;
-		if(actual.y-1 == y && actual.x-2 == x) return true;
-		if(actual.y-1 == y && actual.x+2 == x) return true;
-		if(actual.y+1 == y && actual.x-2 == x) return true;
-		if(actual.y+1 == y && actual.x+2 == x) return true;
-		if(actual.y+2 == y && actual.x-1 == x) return true;
-		if(actual.y+2 == y && actual.x+1 == x) return true;
+
+	/*
+	 * Metode que comprova el moviment del cavall
+	 */
+	public boolean comprovarMovimentCavall(int x, int y, int actualX, int actualY) {
+	
+		if(actualY-2 == y && actualX-1 == x) return true;
+		if(actualY-2 == y && actualX+1 == x) return true;
+		if(actualY-1 == y && actualX-2 == x) return true;
+		if(actualY-1 == y && actualX+2 == x) return true;
+		if(actualY+1 == y && actualX-2 == x) return true;
+		if(actualY+1 == y && actualX+2 == x) return true;
+		if(actualY+2 == y && actualX-1 == x) return true;
+		if(actualY+2 == y && actualX+1 == x) return true;
+
 		return false;
 	}
 

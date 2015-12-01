@@ -2,7 +2,6 @@ package presentacio;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -19,21 +18,21 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import domini.Coord;
 import domini.Joc;
 
 public class TaulellGrafic extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-    private static JLabel lblEstat;
-    private static JButton btnDesfer;
-
+	private Joc joc;
     private CasellaGrafica[][] casellesTaulell;
+
+    private JLabel lblEstat;
+    private JButton btnDesfer;
+
     private ImageIcon imatgeCavall;
     private ImageIcon imatgeCavallOfegat;
     private ImageIcon imatgeCavallGuanyador;
-    private Joc joc;
     
     private final Color CASELLA_SEGUENT = Color.GREEN;
     private final Color CASELLA_NEGRA = Color.BLACK;
@@ -50,9 +49,8 @@ public class TaulellGrafic extends JFrame {
 		this.joc = joc;
 		
 		
-		casellesTaulell = new CasellaGrafica[joc.mida][joc.mida];
+		casellesTaulell = new CasellaGrafica[joc.getMida()][joc.getMida()];
 		
-//		this.setMinimumSize(new Dimension(600, 600));
 		this.setBounds(0, 0, 600, 600);
 		
 		lblEstat = new JLabel(" ");
@@ -64,13 +62,8 @@ public class TaulellGrafic extends JFrame {
 		btnDesfer = new JButton("Desfer darrer moviment");
 		btnDesfer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					joc.desferMoviment();
-					refreshGui();
-					lblEstat.setText(String.format("Moviment desfet!") );
-				} catch (Exception ex) {
-					lblEstat.setText(ex.getMessage());
-				}
+				lblEstat.setText(joc.desferMoviment());
+				refreshGui();
 			}
 		});
 		this.getContentPane().add(btnDesfer, BorderLayout.SOUTH);
@@ -80,14 +73,14 @@ public class TaulellGrafic extends JFrame {
 		
 		JPanel chessBoard;
     	
-        chessBoard = new JPanel(new GridLayout(0, joc.mida));
+        chessBoard = new JPanel(new GridLayout(0, joc.getMida()));
         chessBoard.setBorder(new LineBorder(Color.BLACK));
     	
 
         // Crea les caselles i les afegeix al taulell
         int w = 64; //this.getSize().width/joc.mida;
-        for (int ii = 0; ii < joc.mida; ii++) {
-            for (int jj = 0; jj < joc.mida; jj++) {
+        for (int ii = 0; ii < joc.getMida(); ii++) {
+            for (int jj = 0; jj < joc.getMida(); jj++) {
             	CasellaGrafica b = new CasellaGrafica(ii, jj, w);
             	
             	// Establir acció de cada botó
@@ -115,32 +108,39 @@ public class TaulellGrafic extends JFrame {
 
 	
 	public void refreshGui(){
-        String[][] sb = joc.estatTaulell();
+        int[][] sb = joc.estatTaulell();
 
         // Neteja el taulell i col·loca els números de moviment
         for (int x = 0; x < sb.length; x++) {
 			for (int y = 0; y < sb[x].length; y++) {
 				CasellaGrafica cg = this.casellesTaulell[x][y]; 
-				cg.setText(sb[x][y]);
 				cg.removeAll();
+				cg.setText("");
+
+				int value = sb[x][y];
+				if(value != Joc.CASELLA_BUIDA)
+					cg.setText(String.valueOf(value));
+
 				cg.repaint();
 			}
 		}
         
-        // Obté la posició actual del cavall i afegeix la imatge del estatus corresponent
-        Coord cavall = joc.posicioCavall();
-		if(cavall!=null){
-			CasellaGrafica cg = this.casellesTaulell[cavall.x-1][cavall.y-1];
+        // Obté la posició actual del cavall i afegeix la imatge del status corresponent
+        if(joc.getHistorial().getMoviments()>0){
+        	int[] posicio = joc.getHistorial().ultimMoviment();
+	        if(posicio!=null){
+				CasellaGrafica cg = this.casellesTaulell[posicio[0]][posicio[1]];
 
-			ImageIcon image = imatgeCavall;
-			if (joc.acabat()) 
-				image = imatgeCavallGuanyador;
-			else if (joc.ofegat())
-				image = imatgeCavallOfegat;
-			
-	        cg.add(new JLabel(image));
-	        cg.repaint();
-		}
+				ImageIcon image = imatgeCavall;
+				if (joc.acabat()) 
+					image = imatgeCavallGuanyador;
+				else if (joc.ofegat())
+					image = imatgeCavallOfegat;
+				
+		        cg.add(new JLabel(image));
+		        cg.repaint();
+			}        	
+        }
 		
         // Pinta les caselles
 	    for (int x = 0; x < sb.length; x++) {
@@ -152,49 +152,38 @@ public class TaulellGrafic extends JFrame {
 				CasellaGrafica cg = this.casellesTaulell[x][y]; 
 				cg.setBackground(color);
 
-				if(joc.moviments()>0) {
+				if(joc.getHistorial().getMoviments()>0) {
+					
+					int[] actual;
 					try {
-						if(joc.casellaBuida(x+1, y+1))
-							if (joc.comprovarMovimentCavall(x+1, y+1)) 
+						actual = joc.getHistorial().ultimMoviment();
+
+						int actualX = actual[0];
+						int actualY = actual[1];
+						
+						if(joc.estatTaulell()[x][y] == -1 )
+							if (joc.comprovarMovimentCavall(x, y, actualX, actualY))  
 								cg.setBackground(CASELLA_SEGUENT);
-					} catch (Exception e) { }
+					
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
 				}
-				
 				cg.repaint();
                 if(color != CASELLA_NEGRA) color = CASELLA_NEGRA; else color = CASELLA_BLANCA;
 			}
 		}
-	    
-	    
 
-		//btnDesfer.setEnabled(joc.moviments()>0); // Es pot deasctivar el botó si no hi ha moviments que desfer
-        
+	    //btnDesfer.setEnabled(joc.moviments()>0); // Es pot deasctivar el botó si no hi ha moviments que desfer
 	}
 	
-	
+	private void casellaClick(CasellaGrafica casella){
 
-	
-	private void casellaClick(CasellaGrafica b){
-		
-		try {
-			if(!joc.acabat() && !joc.ofegat()){
-				joc.mouCavall(b.x, b.y);
-				this.refreshGui();
-//				lblEstat.setText(String.format("Moviment %s,%s correcte", x,y) );
-				lblEstat.setText(String.format("(%s,%s) Correcte, queden %s moviments per guanyar", b.x, b.y , joc.mida*joc.mida - joc.moviments()) );
-			}
-
-			if(joc.ofegat())
-				lblEstat.setText(String.format("El cavall està ofegat, pots desfer els moviments."));
-			
-			if(joc.acabat())
-				lblEstat.setText(String.format("Joc acabat, HAS GUANYAT!"));
-				
-			
-		} catch (Exception e1) {
-			lblEstat.setText(e1.getMessage());
-		}		
-		
+		String estat = joc.mouCavall(casella.getFila(), casella.getColumna());
+		this.refreshGui();
+		lblEstat.setText(estat);
 	}
 	
 }

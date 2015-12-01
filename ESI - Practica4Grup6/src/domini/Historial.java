@@ -12,26 +12,28 @@ public class Historial {
 
 	Historial(){
 		this.moviments = 0;
-		this.historial = new Stack<Coord>();
+		this.historial = new Stack<int[]>();
 	}
 
-	private Stack<Coord> historial ;
+	private Stack<int[]> historial ;
 	
 	
 	public void guardar(int x, int y) {
-		historial.push(new Coord(x,y));
+		historial.push(new int[]{x,y});
 		moviments++;
 	}
 	
-	public Coord ultimMoviment() throws Exception{
+	public int[] ultimMoviment(){
 		if (historial.empty())
-			throw new Exception ("Error ï¿½ltim moviment:  no hi ha cap moviment");
+			return null;
+		
 		return historial.peek();
 	}
 
-	public Coord desferUltimMoviment() throws Exception{
+	public int[] desferUltimMoviment() throws Exception{
 		if (historial.empty())
-			throw new Exception ("Error desfer ï¿½ltim moviment:  no hi ha cap moviment");
+			throw new Exception ("Error desfer últim moviment:  no hi ha cap moviment");
+		
 		moviments--;
 		return historial.pop();
 	}
