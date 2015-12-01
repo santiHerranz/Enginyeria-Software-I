@@ -32,13 +32,13 @@ public class CasellaGrafica extends JButton {
 		this.fila = x;
 		this.columna = y;
 		
-		// Texte
+		// Text
 		this.setHorizontalTextPosition(SwingConstants.CENTER);
 		this.setFont(new Font("Tahoma", Font.PLAIN,ample/3));
 		this.setForeground(Color.GRAY);
 		this.setToolTipText((this.fila+1) +","+ (this.columna+1));
 
-		// Tamany del boto forçat amb una imatge
+		// Mida del boto forçat amb una imatge
 		this.setLayout(new GridBagLayout()); // Estableix imatge al centre
         ImageIcon icon = new ImageIcon(
                 new BufferedImage(ample, ample, BufferedImage.TYPE_INT_ARGB));

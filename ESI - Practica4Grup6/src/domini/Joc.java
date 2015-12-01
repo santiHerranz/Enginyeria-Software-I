@@ -57,7 +57,6 @@ public class Joc {
 		}
 
 		try {
-
 			this.taulell.omplirCasella(x, y, this.historial.getMoviments()+1);
 			this.historial.guardar(x,y);
 			this.status = STATUS_NORMAL;
@@ -109,21 +108,21 @@ public class Joc {
 	}	
 
 	/*
-	 * Metode per obtenir la representacio del taulell
+	 * Mètode per obtenir la representacio del taulell
 	 */
 	public int[][] estatTaulell() {
 		return this.taulell.estatTaulell();
 	}
 	
 	/*
-	 * Metode que comprova si el joc ha acabat
+	 * Mètode que comprova si el joc ha acabat
 	 */
 	public boolean acabat(){
 		return this.historial.getMoviments() == this.mida*this.mida;		
 	}
 	
 	/*
-	 * Metode que comprova si el cavall esta ofegat
+	 * Mètode que comprova si el cavall està ofegat
 	 */
 	public boolean ofegat() throws Exception {
 		if(this.historial.getMoviments()==0) return false; //El primer moviment sempre es valid
@@ -134,10 +133,8 @@ public class Joc {
 			int[][] sb = this.estatTaulell();
 	        for (int x = 0; x < sb.length; x++) {
 				for (int y = 0; y < sb[x].length; y++) {
-
 					if (this.taulell.esCasellaBuida(x, y)) {
-						if (this.esCorrecte(x, y, actual))
-							return false;
+						if (this.esCorrecte(x, y, actual))return false;
 					}
 				}
 	        }
@@ -147,7 +144,7 @@ public class Joc {
 
 
 	/*
-	 * Metode que comprova el moviment del cavall
+	 * Mètode que comprova el moviment del cavall
 	 */
 	public boolean esCorrecte(int x, int y, int[] actual) {
 		int actualX = actual[0];

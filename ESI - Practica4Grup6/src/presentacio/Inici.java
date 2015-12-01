@@ -30,7 +30,7 @@ public class Inici {
 	private Finestra finestra;
 
 	/**
-	 * Launch the application.
+	 * Llença l'aplicació.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -51,13 +51,13 @@ public class Inici {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicialitza el contingut de la finestra.
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("Practica 4 - Grup 6");
+		frame.setTitle("Pràctica 4 - Grup 6");
 		frame.setBounds(100, 100, 329, 185);
-		frame.setLocationRelativeTo(null); // center the application window
+		frame.setLocationRelativeTo(null); // Centra l'aplicació en la finestra
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -88,7 +88,6 @@ public class Inici {
 		        	   obrirFinestra();
 		              }
 		         }			
-			
 		});
 		
 		btnAcceptar = new JButton("Acceptar");
@@ -96,12 +95,9 @@ public class Inici {
 		btnAcceptar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnAcceptar.addActionListener(new ActionListener(){
 
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				obrirFinestra();
 			}});
-		
-		
 	}
 
 	
