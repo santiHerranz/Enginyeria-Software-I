@@ -5,11 +5,12 @@ import domini.Joc;
 
 public class Finestra {
 
+
 	private TaulellGrafic taulellGrafic;
 
-	public Finestra(Joc joc) throws Exception {
+	public Finestra(int mida) throws Exception {
 		
-		taulellGrafic = new TaulellGrafic(joc);
+		taulellGrafic = new TaulellGrafic(mida);
 		taulellGrafic.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		refreshGui();
         taulellGrafic.pack();

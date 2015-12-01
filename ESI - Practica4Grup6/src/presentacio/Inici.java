@@ -24,11 +24,10 @@ import java.awt.Dimension;
 public class Inici {
 
 	private JFrame frame;
-	private JTextField textField;
+	private JTextField txtMida;
 	private JButton btnAcceptar;
 	
 	private Finestra finestra;
-	private Joc joc;
 
 	/**
 	 * Launch the application.
@@ -78,15 +77,15 @@ public class Inici {
 		horizontalBox.add(lblMida);
 		lblMida.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		textField = new JTextField();
-		horizontalBox.add(textField);
-		textField.setColumns(10);
-		textField.addKeyListener(new KeyAdapter(){
+		txtMida = new JTextField();
+		horizontalBox.add(txtMida);
+		txtMida.setColumns(10);
+		txtMida.addKeyListener(new KeyAdapter(){
 			
 			public void keyPressed(KeyEvent e) {
 		           int key = e.getKeyCode();
 		           if (key == KeyEvent.VK_ENTER) {
-		        	   iniciarJoc();
+		        	   obrirFinestra();
 		              }
 		         }			
 			
@@ -99,21 +98,20 @@ public class Inici {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				iniciarJoc();
+				obrirFinestra();
 			}});
 		
 		
 	}
 
 	
-	private void iniciarJoc(){
-		String text = textField.getText();
+	private void obrirFinestra(){
+		String text = txtMida.getText();
 		
 		try {
 
 			int mida = Integer.parseInt(text);
-			joc = new Joc(mida);
-			finestra = new Finestra(joc);
+			finestra = new Finestra(mida);
 
 			frame.setVisible(false);
 			
@@ -122,8 +120,8 @@ public class Inici {
 				    e.getMessage(),
 				    "error",
 				    JOptionPane.ERROR_MESSAGE);
-			 textField.setText("");
-			 textField.requestFocus();
+			 txtMida.setText("");
+			 txtMida.requestFocus();
 		}		
 	}
 }

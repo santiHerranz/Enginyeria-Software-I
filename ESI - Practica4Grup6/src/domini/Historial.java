@@ -22,7 +22,7 @@ public class Historial {
 	 * 
 	 * @return null quan no hi ha moviments
 	 */
-	public int[] ultimMoviment(){
+	public int[] obtenirUltimMoviment(){
 		if (historial.empty())
 			return null;
 		

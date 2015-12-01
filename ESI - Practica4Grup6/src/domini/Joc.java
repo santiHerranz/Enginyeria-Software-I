@@ -8,10 +8,10 @@ public class Joc {
 	public final static int STATUS_ACABAT = 100;
 	public final static int STATUS_OFEGAT = 8;
 
-	private Taulell taulell;
-	private int mida;
-	private Historial historial;
-	private int status;
+	private Taulell taulell;		// Taulell de joc
+	private int mida;				// Mida del taulell
+	private Historial historial;    // Seqüència ordenada de moviments realitzats
+	private int status;				// Estat del joc 
 
 	public int getMida() {
 		return mida;
@@ -39,18 +39,16 @@ public class Joc {
 	public String mouCavall( int x, int y) {
 		
 		if(this.status == STATUS_OFEGAT || this.status == STATUS_ACABAT ){
+			// Recordem al jugador l'estat del joc
 			return descripcioStatus();
 		}
 
 		if(this.historial.getMoviments()>0) {
 			
 			try {
-				int[] actual = this.historial.ultimMoviment();
-				
-				int actualX = actual[0];
-				int actualY = actual[1];
-				
-				if (!this.movimentCorrecte(x, y, actualX, actualY))  
+				int[] actual = this.historial.obtenirUltimMoviment();
+	
+				if (!this.esCorrecte(x, y, actual))  
 					throw new Exception("El moviment invalid!, ha de ser el salt del cavall dels escacs.");
 
 			} catch (Exception e) {
@@ -91,7 +89,7 @@ public class Joc {
 	}
 
 	public String desferMoviment() {
-			int p[] = this.historial.ultimMoviment();
+			int p[] = this.historial.obtenirUltimMoviment();
 			if(p == null)
 				return "No hi ha més moviments!";
 			else {
@@ -130,17 +128,15 @@ public class Joc {
 	public boolean ofegat() throws Exception {
 		if(this.historial.getMoviments()==0) return false; //El primer moviment sempre es valid
 
-		int[] actual = this.historial.ultimMoviment();
+		int[] actual = this.historial.obtenirUltimMoviment();
 		if(actual!= null){
-			int actualX = actual[0];
-			int actualY = actual[1];
 
 			int[][] sb = this.estatTaulell();
 	        for (int x = 0; x < sb.length; x++) {
 				for (int y = 0; y < sb[x].length; y++) {
 
 					if (this.taulell.esCasellaBuida(x, y)) {
-						if (this.movimentCorrecte(x, y, actualX, actualY))
+						if (this.esCorrecte(x, y, actual))
 							return false;
 					}
 				}
@@ -153,16 +149,21 @@ public class Joc {
 	/*
 	 * Metode que comprova el moviment del cavall
 	 */
-	public boolean movimentCorrecte(int x, int y, int actualX, int actualY) {
-	
-		if(actualY-2 == y && actualX-1 == x) return true;
-		if(actualY-2 == y && actualX+1 == x) return true;
-		if(actualY-1 == y && actualX-2 == x) return true;
-		if(actualY-1 == y && actualX+2 == x) return true;
-		if(actualY+1 == y && actualX-2 == x) return true;
-		if(actualY+1 == y && actualX+2 == x) return true;
-		if(actualY+2 == y && actualX-1 == x) return true;
-		if(actualY+2 == y && actualX+1 == x) return true;
+	public boolean esCorrecte(int x, int y, int[] actual) {
+		int actualX = actual[0];
+		int actualY = actual[1];
+		
+		// 8 Moviments posibles del cavall
+		final int CoordenadaX[]={ 1, 2, 2, 1,-1,-2,-2,-1 };
+		final int CoordenadaY[]={ 2, 1,-1,-2,-2,-1, 1, 2 };		
+		
+		int col, fil;
+		for (int i=0; i<8; i++){
+			fil=actualX+CoordenadaX[i];
+			col=actualY+CoordenadaY[i];
+			if(fil== x && col == y) 
+				return true;
+		}
 
 		return false;
 	}

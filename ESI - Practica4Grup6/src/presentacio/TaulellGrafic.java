@@ -41,13 +41,9 @@ public class TaulellGrafic extends JFrame {
     /*
      * Constructor
      */
-	TaulellGrafic(Joc joc) throws Exception{
-		
-		if(joc == null) throw new Exception("El taulell depén d'un joc");
-		
-		// punt de referencia al joc vinculat
-		this.joc = joc;
-		
+	TaulellGrafic(int mida) throws Exception{
+
+		joc = new Joc(mida);
 		
 		casellesTaulell = new CasellaGrafica[joc.getMida()][joc.getMida()];
 		
@@ -127,7 +123,7 @@ public class TaulellGrafic extends JFrame {
         
         // Obté la posició actual del cavall i afegeix la imatge del status corresponent
         if(joc.getHistorial().getMoviments()>0){
-        	int[] posicio = joc.getHistorial().ultimMoviment();
+        	int[] posicio = joc.getHistorial().obtenirUltimMoviment();
 	        if(posicio!=null){
 				CasellaGrafica cg = this.casellesTaulell[posicio[0]][posicio[1]];
 
@@ -156,13 +152,10 @@ public class TaulellGrafic extends JFrame {
 					
 					int[] actual;
 					try {
-						actual = joc.getHistorial().ultimMoviment();
+						actual = joc.getHistorial().obtenirUltimMoviment();
 
-						int actualX = actual[0];
-						int actualY = actual[1];
-						
 						if(joc.estatTaulell()[x][y] == Joc.CASELLA_BUIDA )
-							if (joc.movimentCorrecte(x, y, actualX, actualY))  
+							if (joc.esCorrecte(x, y, actual))  
 								cg.setBackground(CASELLA_SEGUENT);
 					
 					} catch (Exception e) {
