@@ -162,7 +162,7 @@ public class TaulellGrafic extends JFrame {
 						int actualY = actual[1];
 						
 						if(joc.estatTaulell()[x][y] == Joc.CASELLA_BUIDA )
-							if (joc.comprovarMovimentCavall(x, y, actualX, actualY))  
+							if (joc.movimentCorrecte(x, y, actualX, actualY))  
 								cg.setBackground(CASELLA_SEGUENT);
 					
 					} catch (Exception e) {

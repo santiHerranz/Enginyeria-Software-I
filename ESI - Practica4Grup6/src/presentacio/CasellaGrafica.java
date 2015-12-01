@@ -24,7 +24,7 @@ public class CasellaGrafica extends JButton {
 	}
 
     // create the chess board squares
-    Insets buttonMargin = new Insets(0,0,0,0);
+    private Insets buttonMargin = new Insets(0,0,0,0);
     
 	CasellaGrafica(int x, int y, int ample){
 

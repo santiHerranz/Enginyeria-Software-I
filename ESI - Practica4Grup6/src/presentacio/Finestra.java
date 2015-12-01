@@ -3,11 +3,11 @@ package presentacio;
 import javax.swing.JFrame;
 import domini.Joc;
 
-public class Aplicacio {
+public class Finestra {
 
 	private TaulellGrafic taulellGrafic;
 
-	public Aplicacio(Joc joc) throws Exception {
+	public Finestra(Joc joc) throws Exception {
 		
 		taulellGrafic = new TaulellGrafic(joc);
 		taulellGrafic.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

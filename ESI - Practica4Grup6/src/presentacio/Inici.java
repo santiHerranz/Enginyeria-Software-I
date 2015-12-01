@@ -25,6 +25,10 @@ public class Inici {
 
 	private JFrame frame;
 	private JTextField textField;
+	private JButton btnAcceptar;
+	
+	private Finestra finestra;
+	private Joc joc;
 
 	/**
 	 * Launch the application.
@@ -88,7 +92,7 @@ public class Inici {
 			
 		});
 		
-		JButton btnAcceptar = new JButton("Acceptar");
+		btnAcceptar = new JButton("Acceptar");
 		horizontalBox.add(btnAcceptar);
 		btnAcceptar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnAcceptar.addActionListener(new ActionListener(){
@@ -107,10 +111,10 @@ public class Inici {
 		
 		try {
 
-			int value = Integer.parseInt(text);
-			Joc joc = new Joc(value);
+			int mida = Integer.parseInt(text);
+			joc = new Joc(mida);
+			finestra = new Finestra(joc);
 
-			Aplicacio app = new Aplicacio(joc);
 			frame.setVisible(false);
 			
 		} catch (Exception e) {

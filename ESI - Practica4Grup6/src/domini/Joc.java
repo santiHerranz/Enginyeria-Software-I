@@ -50,7 +50,7 @@ public class Joc {
 				int actualX = actual[0];
 				int actualY = actual[1];
 				
-				if (!this.comprovarMovimentCavall(x, y, actualX, actualY))  
+				if (!this.movimentCorrecte(x, y, actualX, actualY))  
 					throw new Exception("El moviment invalid!, ha de ser el salt del cavall dels escacs.");
 
 			} catch (Exception e) {
@@ -140,7 +140,7 @@ public class Joc {
 				for (int y = 0; y < sb[x].length; y++) {
 
 					if (this.taulell.esCasellaBuida(x, y)) {
-						if (this.comprovarMovimentCavall(x, y, actualX, actualY))
+						if (this.movimentCorrecte(x, y, actualX, actualY))
 							return false;
 					}
 				}
@@ -153,7 +153,7 @@ public class Joc {
 	/*
 	 * Metode que comprova el moviment del cavall
 	 */
-	public boolean comprovarMovimentCavall(int x, int y, int actualX, int actualY) {
+	public boolean movimentCorrecte(int x, int y, int actualX, int actualY) {
 	
 		if(actualY-2 == y && actualX-1 == x) return true;
 		if(actualY-2 == y && actualX+1 == x) return true;
