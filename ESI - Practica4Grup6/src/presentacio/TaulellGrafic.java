@@ -132,10 +132,10 @@ public class TaulellGrafic extends JFrame {
 				CasellaGrafica cg = this.casellesTaulell[posicio[0]][posicio[1]];
 
 				ImageIcon image = imatgeCavall;
-				if (joc.acabat()) 
+				if (joc.getStatus() == Joc.STATUS_ACABAT) 
 					image = imatgeCavallGuanyador;
-				else if (joc.ofegat())
-					image = imatgeCavallOfegat;
+				else if (joc.getStatus() == Joc.STATUS_OFEGAT)
+						image = imatgeCavallOfegat;
 				
 		        cg.add(new JLabel(image));
 		        cg.repaint();
