@@ -114,7 +114,7 @@ public class TaulellGrafic extends JFrame {
 				cg.setText("");
 
 				int value = sb[x][y];
-				if(value != Joc.CASELLA_BUIDA)
+				if(value>0)
 					cg.setText(String.valueOf(value));
 
 				cg.repaint();
@@ -152,9 +152,9 @@ public class TaulellGrafic extends JFrame {
 					
 					int[] actual;
 					try {
-						actual = joc.getHistorial().obtenirUltimMoviment();
+						actual = joc.obtenirUltimMoviment();
 
-						if(joc.estatTaulell()[x][y] == Joc.CASELLA_BUIDA )
+						if(joc.esCasellaBuida(x,y))
 							if (joc.esCorrecte(x, y, actual))  
 								cg.setBackground(CASELLA_SEGUENT);
 					
@@ -176,5 +176,7 @@ public class TaulellGrafic extends JFrame {
 		lblEstat.setText(joc.mouCavall(casella.getFila(),casella.getColumna()));
 		this.refreshGui();
 	}
+	
+
 	
 }

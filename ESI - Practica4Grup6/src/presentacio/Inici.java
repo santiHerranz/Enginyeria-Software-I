@@ -27,7 +27,7 @@ public class Inici {
 	private JTextField txtMida;
 	private JButton btnAcceptar;
 	
-	private Finestra finestra;
+	private TaulellGrafic finestra;
 
 	/**
 	 * Llença l'aplicació.
@@ -107,7 +107,11 @@ public class Inici {
 		try {
 
 			int mida = Integer.parseInt(text);
-			finestra = new Finestra(mida);
+			finestra = new TaulellGrafic(mida);
+			finestra.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			finestra.pack();
+			finestra.setLocationRelativeTo(null); // center the application window
+			finestra.setVisible(true);	
 
 			frame.setVisible(false);
 			

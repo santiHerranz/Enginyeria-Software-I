@@ -2,8 +2,6 @@ package domini;
 
 public class Joc {
 
-	public final static int CASELLA_BUIDA = -1;
-
 	public final static int STATUS_NORMAL = 1;
 	public final static int STATUS_ACABAT = 100;
 	public final static int STATUS_OFEGAT = 8;
@@ -93,7 +91,7 @@ public class Joc {
 				return "No hi ha més moviments!";
 			else {
 				try {
-					this.taulell.omplirCasella(p[0], p[1], Joc.CASELLA_BUIDA);
+					this.taulell.buidarCasella(p[0], p[1]);
 					this.historial.desferUltimMoviment();
 					
 					this.status = STATUS_NORMAL;
@@ -106,6 +104,14 @@ public class Joc {
 				}
 			}
 	}	
+	
+	public int[] obtenirUltimMoviment() {
+		return this.historial.obtenirUltimMoviment();
+	}
+	
+	public boolean esCasellaBuida(int fila, int columna) throws Exception {
+		return this.taulell.esCasellaBuida(fila,columna);
+	}
 
 	/*
 	 * Mètode per obtenir la representacio del taulell
