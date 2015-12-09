@@ -1,19 +1,19 @@
 package domini;
 
-import java.awt.Component;
+import java.util.ArrayList;
 
 public class Joc {
 	
 	
 	private Jugador jugador;
-	private Historial historial;
+	private ArrayList<Partida> historial;
 	private Dau D1; 
 	private Dau D2;
 
 
 	public Joc(String nom) throws Exception{
 		jugador = new Jugador(nom);
-		historial = new Historial();
+		historial = new ArrayList<Partida>();
 		D1 = new Dau();
 		D2 = new Dau();
 	}
@@ -31,19 +31,24 @@ public class Joc {
 		return jugador.getNom();
 	}
 
-	public void comprovarResultat() {
-		
-		int d1 = D1.getValue();
-		int d2 = D2.getValue();
-		
-		Partida p = new Partida(jugador, d1, d2);		
 
-		historial.registrar(p);
-		
+	public Partida[] getHistorial() {
+			Partida[] items = new Partida[this.historial.size()];
+			historial.toArray(items);
+			return items;
 	}
+	
+	public String llançar() {
+		
+		this.D1.llançar();
+		this.D2.llançar();
+		
+		Partida p = new Partida(jugador, this.D1.getValue(), this.D2.getValue());		
 
-	public Historial getHistorial() {
-		return historial;
+		historial.add(p);
+		
+		return p.getResultat();
+		
 	}
 	
 	

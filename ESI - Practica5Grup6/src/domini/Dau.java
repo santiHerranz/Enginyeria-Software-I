@@ -8,10 +8,10 @@ public class Dau {
 	
 	public void llançar(){
 		Random  r = new Random();
-		value = 1+(r.nextInt(6));
+		this.value = 1+(r.nextInt(6));
 	}
 
 	public int getValue() {
-		return value;
+		return this.value;
 	}
 }

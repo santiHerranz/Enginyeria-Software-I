@@ -5,15 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
-import domini.Historial;
 import domini.Partida;
 import domini.Joc;
 
@@ -22,6 +19,10 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import javax.swing.ListSelectionModel;
 
 public class Finestra {
 
@@ -42,6 +43,7 @@ public class Finestra {
 			public void run() {
 				try {
 					Finestra window = new Finestra();
+					window.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,8 +57,6 @@ public class Finestra {
 	 */
 	public Finestra() {
 		initialize();
-		
-		
 	}
 
 	/**
@@ -65,28 +65,12 @@ public class Finestra {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 784, 530);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null); // Centra l'aplicació en la finestra
 		
 		JButton btnJugar = new JButton("Jugar");
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				try {
-					if(joc == null) {
-						joc = new Joc(textField.getText());
-						textField.setEditable(false);
-					}
-					doJugar();
-					
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(frame,
-						    e.getMessage(),
-						    "error",
-						    JOptionPane.ERROR_MESSAGE);
-					textField.requestFocus();
-				}
-				
+				doJugar();
 			}
 
 		});
@@ -113,60 +97,113 @@ public class Finestra {
 		frame.getContentPane().add(lblJugador);
 		
 		listPartides = new JList<Partida>();
-		springLayout.putConstraint(SpringLayout.WEST, listPartides, -501, SpringLayout.EAST, frame.getContentPane());
+		listPartides.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listPartides.setModel(new DefaultListModel<Partida>());
-		springLayout.putConstraint(SpringLayout.NORTH, listPartides, 163, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, listPartides, -79, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, listPartides, -28, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(listPartides);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(listPartides);
+		springLayout.putConstraint(SpringLayout.EAST, scrollPane, -42, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, scrollPane, -501, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 163, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, -79, SpringLayout.SOUTH, frame.getContentPane());
+		frame.getContentPane().add(scrollPane);
+		
+		JPanel panel = new JPanel();
+		springLayout.putConstraint(SpringLayout.NORTH, panel, 26, SpringLayout.SOUTH, btnJugar);
+		springLayout.putConstraint(SpringLayout.WEST, panel, 34, SpringLayout.WEST, frame.getContentPane());
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
 		
 		JLabel lblDau = new JLabel("Dau 1:");
+		lblDau.setBounds(10, 23, 58, 14);
+		panel.add(lblDau);
 		springLayout.putConstraint(SpringLayout.NORTH, lblDau, 95, SpringLayout.SOUTH, btnJugar);
 		springLayout.putConstraint(SpringLayout.WEST, lblDau, 112, SpringLayout.WEST, frame.getContentPane());
-		frame.getContentPane().add(lblDau);
-		
-		JLabel lblDau_1 = new JLabel("Dau 2:");
-		springLayout.putConstraint(SpringLayout.NORTH, lblDau_1, 73, SpringLayout.SOUTH, lblDau);
-		springLayout.putConstraint(SpringLayout.WEST, lblDau_1, 0, SpringLayout.WEST, lblDau);
-		frame.getContentPane().add(lblDau_1);
 		
 		lblDau1 = new DauGrafic("");
-		springLayout.putConstraint(SpringLayout.NORTH, lblDau1, -13, SpringLayout.NORTH, lblDau);
+		lblDau1.setBounds(99, 12, 67, 30);
+		panel.add(lblDau1);
+		springLayout.putConstraint(SpringLayout.NORTH, lblDau1, 199, SpringLayout.SOUTH, textField);
+		springLayout.putConstraint(SpringLayout.WEST, lblDau1, -518, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, lblDau1, -245, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblDau1, -592, SpringLayout.EAST, frame.getContentPane());
 		lblDau1.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		frame.getContentPane().add(lblDau1);
+		
+		JLabel lblDau_1 = new JLabel("Dau 2:");
+		lblDau_1.setBounds(10, 101, 58, 14);
+		panel.add(lblDau_1);
+		springLayout.putConstraint(SpringLayout.NORTH, lblDau_1, 182, SpringLayout.SOUTH, btnJugar);
+		springLayout.putConstraint(SpringLayout.WEST, lblDau_1, 112, SpringLayout.WEST, frame.getContentPane());
 		
 		lblDau2 = new DauGrafic("");
-		springLayout.putConstraint(SpringLayout.EAST, lblDau2, -366, SpringLayout.EAST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, lblDau1, 0, SpringLayout.EAST, lblDau2);
-		springLayout.putConstraint(SpringLayout.NORTH, lblDau2, -13, SpringLayout.NORTH, lblDau_1);
+		lblDau2.setBounds(99, 90, 67, 30);
+		panel.add(lblDau2);
+		springLayout.putConstraint(SpringLayout.NORTH, lblDau2, 258, SpringLayout.SOUTH, textField);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblDau2, -186, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblDau2, -592, SpringLayout.EAST, frame.getContentPane());
 		lblDau2.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		frame.getContentPane().add(lblDau2);
+		springLayout.putConstraint(SpringLayout.WEST, lblDau2, 0, SpringLayout.WEST, lblDau1);
+		
 		
 		lblResultat = new JLabel("");
-		springLayout.putConstraint(SpringLayout.WEST, lblResultat, 0, SpringLayout.WEST, lblDau1);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblResultat, -79, SpringLayout.SOUTH, frame.getContentPane());
+		lblResultat.setHorizontalAlignment(SwingConstants.CENTER);
+		lblResultat.setBounds(10, 160, 156, 39);
+		panel.add(lblResultat);
+		springLayout.putConstraint(SpringLayout.WEST, lblResultat, 207, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblResultat, -663, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, lblResultat, -77, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, lblResultat, -118, SpringLayout.SOUTH, frame.getContentPane());
 		lblResultat.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		frame.getContentPane().add(lblResultat);
+		springLayout.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.SOUTH, lblResultat);
+		springLayout.putConstraint(SpringLayout.EAST, panel, 105, SpringLayout.EAST, lblResultat);
+		
+		JButton btnNewButton = new JButton("Partides jugades");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				doPartidesJugades();
+			}
+		});
+		springLayout.putConstraint(SpringLayout.SOUTH, btnNewButton, 0, SpringLayout.SOUTH, btnJugar);
+		springLayout.putConstraint(SpringLayout.EAST, btnNewButton, -231, SpringLayout.EAST, frame.getContentPane());
+		frame.getContentPane().add(btnNewButton);
 	}
 	
 	private void doJugar() {
 		
-		joc.getDau1().llançar();
-		joc.getDau2().llançar();
+		try {
+			if(joc == null) {
+				joc = new Joc(textField.getText());
+				textField.setEditable(false);
+			}
+
+			lblResultat.setText(joc.llançar());
+
+			lblDau1.setText(String.valueOf(joc.getDau1().getValue()));
+			lblDau2.setText(String.valueOf(joc.getDau2().getValue()));
+			
+
+			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(frame,
+				    e.getMessage(),
+				    "error",
+				    JOptionPane.ERROR_MESSAGE);
+			textField.requestFocus();
+		}
 		
-		joc.comprovarResultat();
 		
-		refreshGUI();
+	}
+	private void doPartidesJugades() {
+
+		if(joc != null) {
+			Partida[] list = joc.getHistorial();
+			if(list.length>0) {
+				int index = list.length-1;
+				listPartides.setListData(list);
+				listPartides.ensureIndexIsVisible(index);
+			}
+		}
+		
 	}
 
-	
-	private void refreshGUI() {
-		
-		lblDau1.setText(String.valueOf(joc.getDau1().getValue()));
-		lblDau2.setText(String.valueOf(joc.getDau2().getValue()));
-		
-		listPartides.setListData(joc.getHistorial().historialList());
-		
-	}
-	
 }
