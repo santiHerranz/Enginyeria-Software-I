@@ -28,8 +28,8 @@ public class Finestra {
 
 	private JFrame frame;
 	private JTextField textField;
-	private DauGrafic lblDau1;
-	private DauGrafic lblDau2;
+	private JLabel lblDau1;
+	private JLabel lblDau2;
 	private JLabel lblResultat;
 	private JLabel lblGuanyat;
 	private JList<String> listPartides;
@@ -124,7 +124,7 @@ public class Finestra {
 		springLayout.putConstraint(SpringLayout.NORTH, lblDau, 95, SpringLayout.SOUTH, btnJugar);
 		springLayout.putConstraint(SpringLayout.WEST, lblDau, 112, SpringLayout.WEST, frame.getContentPane());
 		
-		lblDau1 = new DauGrafic("");
+		lblDau1 = new JLabel("");
 		lblDau1.setBounds(65, 11, 67, 47);
 		panel.add(lblDau1);
 		springLayout.putConstraint(SpringLayout.NORTH, lblDau1, 199, SpringLayout.SOUTH, textField);
@@ -139,7 +139,7 @@ public class Finestra {
 		springLayout.putConstraint(SpringLayout.NORTH, lblDau_1, 182, SpringLayout.SOUTH, btnJugar);
 		springLayout.putConstraint(SpringLayout.WEST, lblDau_1, 112, SpringLayout.WEST, frame.getContentPane());
 		
-		lblDau2 = new DauGrafic("");
+		lblDau2 = new JLabel("");
 		lblDau2.setBounds(65, 87, 67, 47);
 		panel.add(lblDau2);
 		springLayout.putConstraint(SpringLayout.NORTH, lblDau2, 258, SpringLayout.SOUTH, textField);
