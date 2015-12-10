@@ -15,8 +15,4 @@ public class Jugador {
 		return nom;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-	
 }

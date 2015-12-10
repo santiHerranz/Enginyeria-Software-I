@@ -5,33 +5,39 @@ import java.util.Date;
 
 public class Partida {
 
-	public static final int PARTIDA_VALOR_GUANYADOR = 7;
-	public static final int PARTIDA_GUANYADA = 1;
-	public static final int PARTIDA_PERDUDA = 0;
+	static final int PARTIDA_VALOR_GUANYADOR = 7;
+	static final int PARTIDA_GUANYADA = 100;
+	static final int PARTIDA_PERDUDA = 50;
 	
-	Jugador j;
-	int d1, d2, estat;
-	int resultat;
-	Date d;
+	static int contador;
 
-	public Partida(Jugador j, int d1, int d2) {
+	private int numero;
+	private String nomJugador;
+	private int dau1, dau2;
+	private int resultat;
+	int estat;
+	private Date data;
 
-		this.j = j;
-		this.d = new Date();
-		this.d1 = d1;
-		this.d2 = d2;
+	public Partida(String nomJugador, int d1, int d2) {
 
-		int estat = 0;
+		dau1 = d1;
+		dau2 = d2;
+		
+		contador++;
+		this.numero = contador;
+		this.nomJugador = nomJugador;
+		this.data = new Date();
+
+		int nouEstat = 0;
 		int resultat = d1 + d2;
 
 		if(resultat == Partida.PARTIDA_VALOR_GUANYADOR)
-			estat = Partida.PARTIDA_GUANYADA;
+			nouEstat = Partida.PARTIDA_GUANYADA;
 		else 
-			estat = Partida.PARTIDA_PERDUDA;
+			nouEstat = Partida.PARTIDA_PERDUDA;
 		
 		this.resultat = resultat;
-		this.estat = estat;
-		
+		this.estat = nouEstat;
 	}
 	
 	public String getResultat() {
@@ -45,16 +51,14 @@ public class Partida {
 		}		
 	}
 	
-	
 	@Override
 	public String toString() {
-		String value = j.getNom() +"  ";
+		String value = numero + ". ";
 		
-		Date dNow = d;
-	      SimpleDateFormat ft = 
-	      new SimpleDateFormat ("yyyy/MM/dd HH:mm:ss");
+		Date dNow = data;
+	    SimpleDateFormat ft = new SimpleDateFormat ("yyyy/MM/dd HH:mm:ss");
 
-		value += ft.format(dNow) +" - > "+ d1 +" + "+ d2 +"  = "+ resultat +"  ";
+		value += ft.format(dNow) +" - > "+ dau1 +" + "+ dau2 +"  = "+ resultat +"  ";
 		
 		switch(estat) {
 		case PARTIDA_GUANYADA: 
@@ -67,5 +71,13 @@ public class Partida {
 		}		
 		return value;
 	}
+
+	public int getDau1() {
+		return dau1;
+	}
+	public int getDau2() {
+		return dau2;
+	}
+
 
 }

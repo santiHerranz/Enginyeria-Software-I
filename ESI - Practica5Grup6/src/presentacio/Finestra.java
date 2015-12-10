@@ -31,7 +31,8 @@ public class Finestra {
 	private DauGrafic lblDau1;
 	private DauGrafic lblDau2;
 	private JLabel lblResultat;
-	private JList<Partida> listPartides;
+	private JLabel lblGuanyat;
+	private JList<String> listPartides;
 	
 	private Joc joc;
 
@@ -64,6 +65,7 @@ public class Finestra {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Enginyeria Software I - Pr\u00E0ctica 5");
 		frame.setBounds(100, 100, 784, 530);
 		frame.setLocationRelativeTo(null); // Centra l'aplicació en la finestra
 		
@@ -75,42 +77,44 @@ public class Finestra {
 
 		});
 		SpringLayout springLayout = new SpringLayout();
-		springLayout.putConstraint(SpringLayout.SOUTH, btnJugar, -354, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnJugar, 178, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, btnJugar, 86, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, btnJugar, -339, SpringLayout.SOUTH, frame.getContentPane());
 		frame.getContentPane().setLayout(springLayout);
 		
 		textField = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, btnJugar, 22, SpringLayout.SOUTH, textField);
-		springLayout.putConstraint(SpringLayout.WEST, btnJugar, 0, SpringLayout.WEST, textField);
-		springLayout.putConstraint(SpringLayout.SOUTH, textField, -411, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, textField, 258, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, textField, -375, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, btnJugar, 6, SpringLayout.SOUTH, textField);
+		springLayout.putConstraint(SpringLayout.WEST, textField, 52, SpringLayout.WEST, frame.getContentPane());
 		textField.setHorizontalAlignment(SwingConstants.LEFT);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		frame.getContentPane().add(btnJugar);
 		
 		JLabel lblJugador = new JLabel("Jugador:");
+		springLayout.putConstraint(SpringLayout.SOUTH, lblJugador, -411, SpringLayout.SOUTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.NORTH, textField, 6, SpringLayout.SOUTH, lblJugador);
-		springLayout.putConstraint(SpringLayout.WEST, lblJugador, 74, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, textField, 0, SpringLayout.WEST, lblJugador);
-		springLayout.putConstraint(SpringLayout.NORTH, lblJugador, 30, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, lblJugador, 0, SpringLayout.WEST, textField);
 		frame.getContentPane().add(lblJugador);
 		
-		listPartides = new JList<Partida>();
+		listPartides = new JList<String>();
 		listPartides.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listPartides.setModel(new DefaultListModel<Partida>());
+		listPartides.setModel(new DefaultListModel<String>());
 		
 		JScrollPane scrollPane = new JScrollPane();
+		springLayout.putConstraint(SpringLayout.EAST, btnJugar, -77, SpringLayout.WEST, scrollPane);
+		springLayout.putConstraint(SpringLayout.EAST, textField, -39, SpringLayout.WEST, scrollPane);
+		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 53, SpringLayout.NORTH, frame.getContentPane());
 		scrollPane.setViewportView(listPartides);
 		springLayout.putConstraint(SpringLayout.EAST, scrollPane, -42, SpringLayout.EAST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, scrollPane, -501, SpringLayout.EAST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 163, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, -79, SpringLayout.SOUTH, frame.getContentPane());
 		frame.getContentPane().add(scrollPane);
 		
 		JPanel panel = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, panel, 26, SpringLayout.SOUTH, btnJugar);
-		springLayout.putConstraint(SpringLayout.WEST, panel, 34, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, panel, 179, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, panel, -64, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, panel, 52, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, panel, -39, SpringLayout.WEST, scrollPane);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -121,7 +125,7 @@ public class Finestra {
 		springLayout.putConstraint(SpringLayout.WEST, lblDau, 112, SpringLayout.WEST, frame.getContentPane());
 		
 		lblDau1 = new DauGrafic("");
-		lblDau1.setBounds(99, 12, 67, 30);
+		lblDau1.setBounds(65, 11, 67, 47);
 		panel.add(lblDau1);
 		springLayout.putConstraint(SpringLayout.NORTH, lblDau1, 199, SpringLayout.SOUTH, textField);
 		springLayout.putConstraint(SpringLayout.WEST, lblDau1, -518, SpringLayout.EAST, frame.getContentPane());
@@ -136,7 +140,7 @@ public class Finestra {
 		springLayout.putConstraint(SpringLayout.WEST, lblDau_1, 112, SpringLayout.WEST, frame.getContentPane());
 		
 		lblDau2 = new DauGrafic("");
-		lblDau2.setBounds(99, 90, 67, 30);
+		lblDau2.setBounds(65, 87, 67, 47);
 		panel.add(lblDau2);
 		springLayout.putConstraint(SpringLayout.NORTH, lblDau2, 258, SpringLayout.SOUTH, textField);
 		springLayout.putConstraint(SpringLayout.SOUTH, lblDau2, -186, SpringLayout.SOUTH, frame.getContentPane());
@@ -146,26 +150,41 @@ public class Finestra {
 		
 		
 		lblResultat = new JLabel("");
-		lblResultat.setHorizontalAlignment(SwingConstants.CENTER);
-		lblResultat.setBounds(10, 160, 156, 39);
+		lblResultat.setBounds(0, 163, 176, 47);
 		panel.add(lblResultat);
-		springLayout.putConstraint(SpringLayout.WEST, lblResultat, 207, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, lblResultat, -663, SpringLayout.EAST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.NORTH, lblResultat, -77, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, lblResultat, -118, SpringLayout.SOUTH, frame.getContentPane());
-		lblResultat.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		springLayout.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.SOUTH, lblResultat);
-		springLayout.putConstraint(SpringLayout.EAST, panel, 105, SpringLayout.EAST, lblResultat);
+		springLayout.putConstraint(SpringLayout.NORTH, lblResultat, -31, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, lblResultat, -60, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblResultat, -747, SpringLayout.EAST, frame.getContentPane());
+		lblResultat.setHorizontalAlignment(SwingConstants.CENTER);
+		lblResultat.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		springLayout.putConstraint(SpringLayout.WEST, lblResultat, -58, SpringLayout.WEST, scrollPane);
 		
-		JButton btnNewButton = new JButton("Partides jugades");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnLlistatPartides = new JButton("Partides jugades");
+		springLayout.putConstraint(SpringLayout.WEST, btnLlistatPartides, 0, SpringLayout.WEST, scrollPane);
+		springLayout.putConstraint(SpringLayout.SOUTH, btnLlistatPartides, -6, SpringLayout.NORTH, scrollPane);
+		btnLlistatPartides.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				doPartidesJugades();
 			}
 		});
-		springLayout.putConstraint(SpringLayout.SOUTH, btnNewButton, 0, SpringLayout.SOUTH, btnJugar);
-		springLayout.putConstraint(SpringLayout.EAST, btnNewButton, -231, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(btnNewButton);
+		frame.getContentPane().add(btnLlistatPartides);
+		
+		JLabel lblNewLabel = new JLabel("Guanyes si els daus sumen 7");
+		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 6, SpringLayout.SOUTH, btnJugar);
+		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 31, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel, -12, SpringLayout.WEST, scrollPane);
+		
+		lblGuanyat = new JLabel(String.format("%.2f %%",0.0));
+		lblGuanyat.setHorizontalAlignment(SwingConstants.LEFT);
+		lblGuanyat.setBounds(77, 232, 89, 21);
+		panel.add(lblGuanyat);
+		
+		JLabel lblGuanyat_1 = new JLabel("Guanyat:");
+		lblGuanyat_1.setBounds(10, 235, 58, 14);
+		panel.add(lblGuanyat_1);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		frame.getContentPane().add(lblNewLabel);
 	}
 	
 	private void doJugar() {
@@ -176,11 +195,13 @@ public class Finestra {
 				textField.setEditable(false);
 			}
 
-			lblResultat.setText(joc.llançar());
-
-			lblDau1.setText(String.valueOf(joc.getDau1().getValue()));
-			lblDau2.setText(String.valueOf(joc.getDau2().getValue()));
+			joc.llançar();
 			
+			lblResultat.setText(joc.getResultat());
+			lblGuanyat.setText(String.format("%.2f %%",joc.getPercentatge()));
+
+			lblDau1.setText(String.valueOf(joc.getDau1()));
+			lblDau2.setText(String.valueOf(joc.getDau2()));
 
 			
 		} catch (Exception e) {
@@ -196,7 +217,7 @@ public class Finestra {
 	private void doPartidesJugades() {
 
 		if(joc != null) {
-			Partida[] list = joc.getHistorial();
+			String[] list = joc.getHistorial();
 			if(list.length>0) {
 				int index = list.length-1;
 				listPartides.setListData(list);
@@ -205,5 +226,4 @@ public class Finestra {
 		}
 		
 	}
-
 }
