@@ -29,9 +29,9 @@ public class Joc {
 		return items;
 	}
 	
-	public void llançar() {
-		this.D1.llançar();
-		this.D2.llançar();
+	public void tirarDaus() {
+		this.D1.tirarDau();
+		this.D2.tirarDau();
 		
 		this.partida = new Partida(this.jugador.getNom(), D1.getValue(), D2.getValue());		
 		this.historial.add(this.partida);

@@ -6,7 +6,7 @@ public class Dau {
 
 	private int value;
 	
-	public void llançar(){
+	public void tirarDau(){
 		Random  r = new Random();
 		this.value = 1+(r.nextInt(6));
 	}

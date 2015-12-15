@@ -195,7 +195,7 @@ public class Finestra {
 				textField.setEditable(false);
 			}
 
-			joc.llançar();
+			joc.tirarDaus();
 			
 			lblResultat.setText(joc.getResultat());
 			lblGuanyat.setText(String.format("%.2f %%",joc.getPercentatge()));
