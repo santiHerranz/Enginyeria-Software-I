@@ -67,7 +67,7 @@ public class Finestra {
 		frame = new JFrame();
 		frame.setTitle("Enginyeria Software I - Pr\u00E0ctica 5");
 		frame.setBounds(100, 100, 784, 530);
-		frame.setLocationRelativeTo(null); // Centra l'aplicació en la finestra
+		frame.setLocationRelativeTo(null); // Centra l'aplicaciï¿½ en la finestra
 		
 		JButton btnJugar = new JButton("Jugar");
 		btnJugar.addActionListener(new ActionListener() {
@@ -150,7 +150,7 @@ public class Finestra {
 		
 		
 		lblResultat = new JLabel("");
-		lblResultat.setBounds(0, 163, 176, 47);
+		lblResultat.setBounds(0, 163, 192, 47);
 		panel.add(lblResultat);
 		springLayout.putConstraint(SpringLayout.NORTH, lblResultat, -31, SpringLayout.SOUTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, lblResultat, -60, SpringLayout.SOUTH, frame.getContentPane());

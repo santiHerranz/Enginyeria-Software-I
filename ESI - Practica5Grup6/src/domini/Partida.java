@@ -43,9 +43,9 @@ public class Partida {
 	public String getResultat() {
 		switch(estat) {
 		case PARTIDA_GUANYADA: 
-			 return "HAS GUANYAT";
+			 return this.nomJugador + " HAS GUANYAT!";
 		case PARTIDA_PERDUDA: 
-			 return "HAS PERDUT";
+			 return this.nomJugador + " HAS PERDUT";
 		default:
 			return "";
 		}		
