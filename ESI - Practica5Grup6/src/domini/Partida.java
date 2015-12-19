@@ -15,7 +15,7 @@ public class Partida {
 	private String nomJugador;
 	private int dau1, dau2;
 	private int resultat;
-	int estat;
+	protected int estat;
 	private Date data;
 
 	public Partida(String nomJugador, int d1, int d2) {

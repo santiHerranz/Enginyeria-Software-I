@@ -4,8 +4,8 @@
   router="FAN">  
   <class id="1" language="java" name="domini.Dau" project="ESI - Practica5Grup6" 
     file="/ESI - Practica5Grup6/src/domini/Dau.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="162" y="520"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="137" width="104" x="74" y="479"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    

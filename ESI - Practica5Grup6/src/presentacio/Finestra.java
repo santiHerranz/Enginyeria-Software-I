@@ -11,7 +11,6 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
-import domini.Partida;
 import domini.Joc;
 
 import javax.swing.JLabel;

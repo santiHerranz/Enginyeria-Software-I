@@ -3,22 +3,56 @@
   <object id="1" language="java" name="presentacio.Finestra" project="ESI - Practica5Grup6" 
     file="/ESI - Practica5Grup6/src/presentacio/Finestra.java" binary="false" label="finestra" type="class" 
     autoSize="true">    
-    <position height="-1" width="-1" x="415" y="0"/>  
+    <position height="-1" width="-1" x="250" y="0"/>    
+    <execution id="2">      
+      <position height="84" width="0" x="0" y="185"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="21" width="0" x="0" y="227"/>    
+    </execution>    
+    <execution id="6">      
+      <position height="21" width="79" x="5" y="227"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="126" width="0" x="0" y="327"/>    
+    </execution>    
+    <execution id="9">      
+      <position height="63" width="0" x="0" y="369"/>    
+    </execution>  
   </object>  
-  <object id="2" language="java" name="domini.Partida" project="ESI - Practica5Grup6" 
+  <object id="12" language="java" name="domini.Partida" project="ESI - Practica5Grup6" 
     file="/ESI - Practica5Grup6/src/domini/Partida.java" binary="false" label="partida" type="class" autoSize="true">    
-    <position height="-1" width="-1" x="415" y="0"/>  
+    <position height="-1" width="-1" x="250" y="0"/>    
+    <execution id="11">      
+      <position height="21" width="71" x="88" y="390"/>    
+    </execution>  
   </object>  
-  <object id="3" language="java" name="domini.Jugador" project="ESI - Practica5Grup6" 
+  <object id="13" language="java" name="domini.Jugador" project="ESI - Practica5Grup6" 
     file="/ESI - Practica5Grup6/src/domini/Jugador.java" binary="false" label="jugador" type="class" autoSize="true">    
-    <position height="-1" width="-1" x="415" y="0"/>  
+    <position height="-1" width="-1" x="250" y="0"/>  
   </object>  
-  <object id="4" language="java" name="domini.Joc" project="ESI - Practica5Grup6" 
+  <object id="14" language="java" name="domini.Joc" project="ESI - Practica5Grup6" 
     file="/ESI - Practica5Grup6/src/domini/Joc.java" binary="false" label="joc" type="class" autoSize="true">    
-    <position height="-1" width="-1" x="415" y="0"/>  
+    <position height="-1" width="-1" x="250" y="0"/>  
   </object>  
-  <object id="5" language="java" name="domini.Dau" project="ESI - Practica5Grup6" 
+  <object id="15" language="java" name="domini.Dau" project="ESI - Practica5Grup6" 
     file="/ESI - Practica5Grup6/src/domini/Dau.java" binary="false" label="dau" type="class" autoSize="true">    
-    <position height="-1" width="-1" x="415" y="0"/>  
-  </object>
+    <position height="-1" width="-1" x="250" y="0"/>  
+  </object>  
+  <message id="3" operation="main(java.lang.String[]):void" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="8" operation="initialize():void" asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" asynchronous="false">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>
 </sequence-diagram>
