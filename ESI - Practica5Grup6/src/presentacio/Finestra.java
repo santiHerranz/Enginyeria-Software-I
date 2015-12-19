@@ -1,7 +1,5 @@
 package presentacio;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -36,29 +34,14 @@ public class Finestra {
 	private Joc joc;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Finestra window = new Finestra();
-					window.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public Finestra() {
 		initialize();
 	}
 
+	public JFrame getFrame() {return frame;}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
