@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sequence-diagram version="1.1.9" icons="true">  
+<sequence-diagram version="1.1.9" icons="true" automaticImage="JPEG">  
   <object id="1" language="java" name="presentacio.Finestra" project="ESI - Practica5Grup6" 
     file="/ESI - Practica5Grup6/src/presentacio/Finestra.java" binary="false" label="finestra" type="class" 
     autoSize="true">    
@@ -34,7 +34,7 @@
     </execution>  
   </object>  
   <object id="34" language="java" name="javax.swing.text.JTextComponent" project="ESI - Practica5Grup6" 
-    file="C:/Program Files/Java/jre1.8.0_66/lib/rt.jar" binary="true" label="textField" type="class" autoSize="true">    
+    file="C:/Program Files/Java/jre1.8.0_65/lib/rt.jar" binary="true" label="textField" type="class" autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
     <execution id="8">      
       <position height="21" width="0" x="0" y="233"/>    
@@ -47,35 +47,35 @@
     </execution>  
   </object>  
   <object id="35" language="java" name="javax.swing.JLabel" project="ESI - Practica5Grup6" 
-    file="C:/Program Files/Java/jre1.8.0_66/lib/rt.jar" binary="true" label="lblResultat" type="class" autoSize="true">    
+    file="C:/Program Files/Java/jre1.8.0_65/lib/rt.jar" binary="true" label="lblResultat" type="class" autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
     <execution id="14">      
       <position height="21" width="0" x="0" y="359"/>    
     </execution>  
   </object>  
   <object id="36" language="java" name="javax.swing.JLabel" project="ESI - Practica5Grup6" 
-    file="C:/Program Files/Java/jre1.8.0_66/lib/rt.jar" binary="true" label="lblGuanyat" type="class" autoSize="true">    
+    file="C:/Program Files/Java/jre1.8.0_65/lib/rt.jar" binary="true" label="lblGuanyat" type="class" autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
     <execution id="18">      
       <position height="21" width="0" x="0" y="443"/>    
     </execution>  
   </object>  
   <object id="37" language="java" name="javax.swing.JLabel" project="ESI - Practica5Grup6" 
-    file="C:/Program Files/Java/jre1.8.0_66/lib/rt.jar" binary="true" label="lblDau1" type="class" autoSize="true">    
+    file="C:/Program Files/Java/jre1.8.0_65/lib/rt.jar" binary="true" label="lblDau1" type="class" autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
     <execution id="22">      
       <position height="21" width="0" x="0" y="527"/>    
     </execution>  
   </object>  
   <object id="38" language="java" name="javax.swing.JLabel" project="ESI - Practica5Grup6" 
-    file="C:/Program Files/Java/jre1.8.0_66/lib/rt.jar" binary="true" label="lblDau2" type="class" autoSize="true">    
+    file="C:/Program Files/Java/jre1.8.0_65/lib/rt.jar" binary="true" label="lblDau2" type="class" autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
     <execution id="26">      
       <position height="21" width="0" x="0" y="611"/>    
     </execution>  
   </object>  
   <object id="39" language="java" name="javax.swing.JOptionPane" project="ESI - Practica5Grup6" 
-    file="C:/Program Files/Java/jre1.8.0_66/lib/rt.jar" binary="true" label="&lt;static&gt;" type="class" 
+    file="C:/Program Files/Java/jre1.8.0_65/lib/rt.jar" binary="true" label="&lt;static&gt;" type="class" 
     autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
     <execution id="30">      
@@ -98,7 +98,7 @@
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="10"/>  
   </message>  
-  <message id="11" operation="llançar():void" asynchronous="false">    
+  <message id="11" asynchronous="false">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="12"/>  
   </message>  
